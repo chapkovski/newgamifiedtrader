@@ -10,7 +10,7 @@ module.exports = {
 
   // },
   // Should be STATIC_URL + path/to/build
-  // publicPath: "/front/",
+  publicPath: "/front/",
 
   // Output to a directory in STATICFILES_DIRS
   // outputDir: path.resolve(__dirname, "../_static/front/"),
