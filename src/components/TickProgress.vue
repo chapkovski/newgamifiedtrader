@@ -7,7 +7,6 @@
   >
     <template #process="{ timeObj }">
       <v-progress-linear
-        v-if="showProgress"
         width="100%"
         height="15px"
         :color="color"
@@ -15,14 +14,11 @@
       >
       </v-progress-linear>
     </template>
-    <template #finish>
-      <span>{{ timerFinish }}</span>
-    </template>
   </countdown>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   name: "Timer",
   props: {
@@ -41,19 +37,18 @@ export default {
   },
   watch: {
     pause(v) {
-      console.debug("V CHANGED", v);
-      if (v === true) {
-        this.$refs.tickTimer.stopCountdown();
-      }
-      if (v === false) {
-        this.$refs.tickTimer.startCountdown(true);
-      }
+      //   if (v === true) {
+      //     this.$refs.tickTimer.stopCountdown();
+      //   }
     },
   },
   methods: {
     ...mapActions(["nextTick"]),
+    ...mapMutations(["PAUSE"]),
     toDo() {
+      this.PAUSE();
       this.nextTick();
+      this.$refs.tickTimer.startCountdown(true);
     },
   },
 };

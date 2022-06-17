@@ -5,23 +5,23 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    cash: 101,
+    cash: 50,
     pause: false,
     marketA: {
       name: "A",
       currentPrice: 100,
       prices: [[new Date().getTime(), 100]],
-      shares: 0,
-      purchasePrice: null,
-      profit: null,
+      shares: 1,
+      purchasePrice: 100,
+      profit: 0,
     },
     marketB: {
       name: "B",
       currentPrice: 100,
       prices: [[new Date().getTime(), 100]],
-      shares: 0,
-      purchasePrice: null,
-      profit: null,
+      shares: 1,
+      purchasePrice: 100,
+      profit: 0,
     },
   },
   mutations: {
@@ -58,12 +58,11 @@ export default new Vuex.Store({
   },
   actions: {
     async nextTick({ commit, dispatch, getters }) {
-      commit("PAUSE");
-      const priceA = _.random(0, 10);
+      const priceA = _.random(50, 150);
       dispatch("setPrice", { market: "A", value: priceA });
-      const priceB = _.random(0, 10);
+      const priceB = _.random(50, 150);
       dispatch("setPrice", { market: "B", value: priceB });
-      commit("UNPAUSE");
+
     },
     setPrice({ commit, getters }, { market, value }) {
       const currentMarket = getters.getMarket(market);
@@ -101,7 +100,6 @@ export default new Vuex.Store({
   },
   getters: {
     isTransactionAllowed: (state, getters) => (marketName, operation) => {
-      console.debug("r we in????", marketName, operation);
       const market = getters.getMarket(marketName);
       if (operation === "buy") {
         return market.shares === 0 && market.currentPrice <= state.cash;
