@@ -10,7 +10,8 @@ module.exports = {
 
   // },
   // Should be STATIC_URL + path/to/build
-  publicPath: "/front/",
+  publicPath:
+    process.env.NODE_ENV === "production" ? "/newgamifiedtrader/" : "/",
 
   // Output to a directory in STATICFILES_DIRS
   // outputDir: path.resolve(__dirname, "../_static/front/"),
