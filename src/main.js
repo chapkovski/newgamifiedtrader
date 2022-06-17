@@ -11,7 +11,8 @@ Vue.use(BreathingColors);
 import VueParticlesBg from "particles-bg-vue";
 Vue.prototype.$gamified = window.gamified;
 Vue.use(VueParticlesBg);
-
+import vueAwesomeCountdown from "vue-awesome-countdown";
+Vue.use(vueAwesomeCountdown, "vac"); 
 
 import "vuetify/dist/vuetify.min.css";
 

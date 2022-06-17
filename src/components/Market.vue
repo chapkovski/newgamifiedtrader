@@ -6,7 +6,8 @@
     class="d-flex flex-column"
   >
     <div id="btns" style="background: orange" class="flex-grow-0 flex-shrink-0">
-      Stock {{ name }}
+      Stock {{ name }}.
+      <pill label="Current price" :value="market.currentPrice"></pill>
     </div>
     <div
       id="chart"
@@ -40,6 +41,7 @@ const startingPrice = window.starting_price;
 const tickFrequency = window.tick_frequency;
 import BuySellBar from "./BuySellBar";
 import InfoBar from "./InfoBar";
+import Pill from "./Pill";
 import { Chart } from "highcharts-vue";
 import { differenceInSeconds, addSeconds, getTime } from "date-fns";
 import { mapMutations, mapActions, mapGetters } from "vuex";
@@ -48,6 +50,7 @@ export default {
     highcharts: Chart,
     BuySellBar,
     InfoBar,
+    Pill,
   },
   props: ["name"],
   data() {
@@ -90,23 +93,23 @@ export default {
   },
   async mounted() {
     this.chartOptions.series[0].data = this.market.prices;
-    this.stockInterval = setInterval(async () => {
-      if (!this.onPause) {
-        this.timeInTrade += this.tickFrequency;
+    // this.stockInterval = setInterval(async () => {
+    //   if (!this.onPause) {
+    //     this.timeInTrade += this.tickFrequency;
 
-        this.currentPrice = _.random(0, 10);
-        this.setPrice({ market: this.name, value: this.currentPrice });
-      }
-    }, this.tickFrequency * 1000);
+    //     this.currentPrice = _.random(0, 10);
+    //     this.setPrice({ market: this.name, value: this.currentPrice });
+    //   }
+    // }, this.tickFrequency * 1000);
   },
   methods: {
     ...mapMutations(["SET_MARKET_PROPERTY"]),
     ...mapActions(["setPrice", "purchase", "sell"]),
     sellClicked() {
-      this.sell({market:this.name})
+      this.sell({ market: this.name });
     },
     buyClicked() {
-       this.purchase({market:this.name})
+      this.purchase({ market: this.name });
     },
   },
 };

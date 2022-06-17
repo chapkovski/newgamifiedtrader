@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import _ from "lodash";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -8,6 +8,7 @@ export default new Vuex.Store({
     cash: 101,
     pause: false,
     marketA: {
+      name: "A",
       currentPrice: 100,
       prices: [[new Date().getTime(), 100]],
       shares: 0,
@@ -15,6 +16,7 @@ export default new Vuex.Store({
       profit: null,
     },
     marketB: {
+      name: "B",
       currentPrice: 100,
       prices: [[new Date().getTime(), 100]],
       shares: 0,
@@ -55,13 +57,21 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    async nextTick({ commit, dispatch, getters }) {
+      commit("PAUSE");
+      const priceA = _.random(0, 10);
+      dispatch("setPrice", { market: "A", value: priceA });
+      const priceB = _.random(0, 10);
+      dispatch("setPrice", { market: "B", value: priceB });
+      commit("UNPAUSE");
+    },
     setPrice({ commit, getters }, { market, value }) {
       const currentMarket = getters.getMarket(market);
       commit("ADD_PRICE_TO_HISTORY", { market, value });
       commit("UPDATE_PRICE", { market, value });
       const { shares, purchasePrice } = currentMarket;
 
-      if (purchasePrice && shares && shares > 0) {
+      if (purchasePrice !== null && shares && shares > 0) {
         const profit = value - purchasePrice;
         commit("UPDATE_PROFIT", { market, profit });
       }
@@ -91,6 +101,7 @@ export default new Vuex.Store({
   },
   getters: {
     isTransactionAllowed: (state, getters) => (marketName, operation) => {
+      console.debug("r we in????", marketName, operation);
       const market = getters.getMarket(marketName);
       if (operation === "buy") {
         return market.shares === 0 && market.currentPrice <= state.cash;

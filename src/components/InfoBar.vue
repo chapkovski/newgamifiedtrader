@@ -1,14 +1,23 @@
 <template>
   <v-row>
-    <v-col> Purchase price: {{market.purchasePrice !== null?market.purchasePrice:'NA'}} </v-col>
-    <v-col> Profit: {{market.profit !== null?market.profit:'NA'}}</v-col>
+    <v-col>
+       <pill label=" Purchase price" :value="market.purchasePrice !== null?market.purchasePrice:'NA'"></pill>
+
+     
+       </v-col>
+    <v-col>
+       <pill label="Profit" :value="market.profit !== null?market.profit:'NA'"></pill>
+       
+       </v-col>
   </v-row>
 </template>
 
 <script>
+import Pill from "./Pill";
 import _ from 'lodash'
 export default {
   props:['market'],
+   components: { Pill },
   data() {
     return {};
   },

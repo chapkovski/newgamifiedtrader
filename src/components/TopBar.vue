@@ -1,37 +1,39 @@
 <template>
-  
-<v-app-bar app clipped-left height="100"  >
-      <instructions-dialog></instructions-dialog>
- <v-sheet outlined class="mx-1 rounded-lg ">
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title>Cash: </v-list-item-title>
-          </v-list-item-content>
-          <v-list-item-action class="font-weight-bold ">
-            ${{$store.state.cash}}
-          </v-list-item-action>
-        </v-list-item>
-      </v-sheet>
-      <v-spacer></v-spacer>
+  <v-app-bar app clipped-left>
+    <instructions-dialog></instructions-dialog>
+    <pill label="Cash" :value="`\$${$store.state.cash}`"></pill>
 
-      <v-spacer></v-spacer>
-    </v-app-bar>
+    <v-spacer></v-spacer>
 
+    <v-spacer></v-spacer>
+
+    <template #extension>
+      <timer
+        :secs-to-end="6"
+        what-to-do="allowExitPermission"
+        :progress-message="''"
+        :show-progress="true"
+        timer-finish="You may leave the chat now or continue for as long as you like."
+        color="blue"
+      />
+    </template>
+  </v-app-bar>
 </template>
 
 <script>
 import InstructionsDialog from "./InstructionsDialog";
+import Timer from "./TickProgress";
+import Pill from "./Pill";
 export default {
-  components:{InstructionsDialog},
+  components: {
+    InstructionsDialog,
+    Pill,
+    Timer,
+  },
   data() {
-    return {
-       
-    };
+    return {};
   },
-   
-  methods: {
-     
-   
-  },
+
+  methods: {},
 };
 </script>

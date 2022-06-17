@@ -3,12 +3,10 @@
     <top-bar></top-bar>
 
     <v-main app v-show="true">
-      <v-row fill-height style="background:yellow;height:100%" >
+      <v-row fill-height style="background: yellow; height: 100%">
         <market name="A"></market>
-           <market name="B"></market>
-        
+        <market name="B"></market>
       </v-row>
-    
     </v-main>
   </v-app>
 </template>
@@ -18,8 +16,7 @@
 import icon from "./assets/icon.js";
 
 import { ParticlesBg } from "particles-bg-vue";
-import  Market from "./components/Market";
-
+import Market from "./components/Market";
 
 import { differenceInSeconds, addSeconds, getTime } from "date-fns";
 import TopBar from "./components/TopBar";
@@ -39,12 +36,11 @@ const formatUp = {
   color: "green darken-3",
   icon: "mdi-arrow-up-bold",
 };
- 
+
 export default {
   name: "App",
   components: {
     Market,
-    
     TopBar,
     ParticlesBg,
   },
@@ -88,7 +84,7 @@ export default {
       prices: [],
       startingPrice,
       currentPrice: startingPrice,
-     
+
       onPause: false,
       counter: 0,
       startTime: new Date(),
@@ -99,7 +95,7 @@ export default {
       dialog: false,
       tweenedPrice: null,
       stockInterval: null,
-      
+
       awardsGiven: [],
       awards: {
         4: {
@@ -162,7 +158,6 @@ export default {
     },
   },
 
- 
   methods: {
     tweenUpd(v) {
       this.tweenedPrice = _.round(this.tweenedPrice, 2);
