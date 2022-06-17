@@ -5,16 +5,17 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    cash:250, 
     marketA: {
-      currentPrice: 0,
-      prices: [[new Date().getTime(), 0]],
+      currentPrice: 100,
+      prices: [[new Date().getTime(), 100]],
       shares: 0,
       purchasePrice: null,
       profit: null,
     },
     marketB: {
-      currentPrice: 0,
-      prices: [[new Date().getTime(), 0]],
+      currentPrice: 100,
+      prices: [[new Date().getTime(), 100]],
       shares: 0,
       purchasePrice: null,
       profit: null,
