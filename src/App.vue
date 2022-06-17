@@ -1,12 +1,6 @@
 <template>
   <v-app app>
-    <v-app-bar app clipped-left height="100" :style="getMenuStyle">
-      <instructions-dialog></instructions-dialog>
-
-      <v-spacer></v-spacer>
-
-      <v-spacer></v-spacer>
-    </v-app-bar>
+    <top-bar></top-bar>
 
     <v-main app v-show="true">
       <v-row fill-height style="background:yellow;height:100%" >
@@ -28,7 +22,7 @@ import  Market from "./components/Market";
 
 
 import { differenceInSeconds, addSeconds, getTime } from "date-fns";
-import InstructionsDialog from "./components/InstructionsDialog";
+import TopBar from "./components/TopBar";
 import gsap from "gsap";
 import _ from "lodash";
 import add from "date-fns/fp/add/index.js";
@@ -45,24 +39,13 @@ const formatUp = {
   color: "green darken-3",
   icon: "mdi-arrow-up-bold",
 };
-const numToStr = {
-  1: "One",
-  2: "Two",
-  3: "Three",
-  4: "Four",
-  5: "Five",
-  6: "Six",
-  7: "Seven",
-  8: "Eight",
-  9: "Nine",
-  10: "Ten",
-};
+ 
 export default {
   name: "App",
   components: {
     Market,
     
-    InstructionsDialog,
+    TopBar,
     ParticlesBg,
   },
   data: function () {

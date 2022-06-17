@@ -1,57 +1,36 @@
 <template>
-  <div class="text-center">
-    <v-dialog  v-model="dialog" width="800">
-       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="green white--text"
-          small
-          v-bind="attrs"
-          v-on="on"
-          class='mx-1'
-        >
-          Instructions
-        </v-btn>
-      </template>
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2"> Instructions </v-card-title>
+  
+<v-app-bar app clipped-left height="100"  >
+      <instructions-dialog></instructions-dialog>
+ <v-sheet outlined class="mx-1 rounded-lg ">
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title>Cash: </v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-action class="font-weight-bold ">
+            ${{$store.state.cash}}
+          </v-list-item-action>
+        </v-list-item>
+      </v-sheet>
+      <v-spacer></v-spacer>
 
-        <v-card-text v-html="instructions" class="text-left">
-           
-        </v-card-text>
+      <v-spacer></v-spacer>
+    </v-app-bar>
 
-        <v-divider></v-divider>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-           
-         @click="closeDialog"
-          >
-            Close
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </div>
 </template>
 
 <script>
-
+import InstructionsDialog from "./InstructionsDialog";
 export default {
+  components:{InstructionsDialog},
   data() {
     return {
-      dialog: false,
-      instructions:document.getElementById('instructions').innerHTML
+       
     };
   },
    
   methods: {
-    closeDialog() {
-      
-      this.dialog = false;
-    },
+     
    
   },
 };
