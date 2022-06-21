@@ -10,7 +10,7 @@
       style="height=100%"
       class="flex-grow-1 flex-shrink-0"
     >
-      <div :style="{ height: `${chartHeight}px` }">
+      <div :style="{ height: `${chartHeight}px` }" v-resize="onResize">
         <highcharts
           v-if="true"
           :constructorType="'stockChart'"
@@ -142,19 +142,19 @@ export default {
     },
   },
   async mounted() {
-    this.chartHeight = this.$refs.chartWrapper.clientHeight - 50;
-    // this.chartOptions.chart.height = "100%";
-
-    this.$nextTick(() => {
-      this.$refs.priceGraph.chart.setSize(null, this.chartHeight);
-      this.$refs.priceGraph.chart.reflow();
-    });
-    console.debug("DO WE REACH?S");
+    this.onResize();
   },
 
   methods: {
     ...mapMutations(["SET_MARKET_PROPERTY"]),
     ...mapActions(["setPrice", "purchase", "sell"]),
+    onResize() {
+      this.chartHeight = this.$refs.chartWrapper.clientHeight - 50;
+      this.$nextTick(() => {
+        this.$refs.priceGraph.chart.setSize(null, this.chartHeight);
+        this.$refs.priceGraph.chart.reflow();
+      });
+    },
     sellClicked() {
       this.sell({ market: this.name });
     },
