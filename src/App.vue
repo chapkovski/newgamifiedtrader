@@ -3,7 +3,7 @@
     <top-bar></top-bar>
 
     <v-main app v-show="true">
-      <v-row fill-height style="background: yellow; height: 100%">
+      <v-row fill-height style=" height: 100%">
         <market name="A"></market>
         <market name="B"></market>
       </v-row>

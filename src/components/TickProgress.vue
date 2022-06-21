@@ -1,7 +1,8 @@
 <template>
   <countdown
+    :autoStart="true"
     ref="tickTimer"
-    :leftTime="6000"
+    :leftTime="1000"
     :style="{ width: '100%' }"
     @finish="toDo()"
   >

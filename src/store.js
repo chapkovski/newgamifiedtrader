@@ -5,12 +5,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    counter: 0,
     cash: 50,
     pause: false,
     marketA: {
       name: "A",
       currentPrice: 100,
-      prices: [[new Date().getTime(), 100]],
+      prices: [100],
       shares: 1,
       purchasePrice: 100,
       profit: 0,
@@ -25,11 +26,14 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    INCREASE_COUNTER(state) {
+      state.counter++;
+    },
     SET_MARKET_PROPERTY(state, { market, key, value }) {
       state[`market${market}`][key] = value;
     },
     ADD_PRICE_TO_HISTORY(state, { market, value }) {
-      state[`market${market}`].prices.push([new Date().getTime(), value]);
+      state[`market${market}`].prices.push(value);
     },
     UPDATE_PRICE(state, { market, value }) {
       state[`market${market}`].currentPrice = value;
@@ -58,11 +62,11 @@ export default new Vuex.Store({
   },
   actions: {
     async nextTick({ commit, dispatch, getters }) {
+      commit("INCREASE_COUNTER");
       const priceA = _.random(50, 150);
       dispatch("setPrice", { market: "A", value: priceA });
       const priceB = _.random(50, 150);
       dispatch("setPrice", { market: "B", value: priceB });
-
     },
     setPrice({ commit, getters }, { market, value }) {
       const currentMarket = getters.getMarket(market);
