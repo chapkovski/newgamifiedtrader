@@ -1,30 +1,31 @@
 <template>
   <div class="d-flex">
-    <award-given-block
-      v-if="isAwardGiven"
-      :awardGiven="awardGiven"
-    ></award-given-block>
-    <v-img
-      v-for="(award, ind) in awards"
-      max-height="50"
-      max-width="50"
-      :key="ind"
-      :src="getAward(award)"
-      class="mx-3"
-    ></v-img>
+    <div v-for="(award, ind) in awards" :key="ind" style="width: 60px">
+      <transition
+        enter-active-class="animate__animated animate__flipInX animate__slow"
+      >
+        <v-img
+          contain
+          max-height="50"
+          max-width="50"
+          :key="getAward(award)"
+          :src="getAward(award)"
+          class="mx-3"
+        ></v-img>
+      </transition>
+    </div>
   </div>
 </template>
 
 <script>
-import AwardGivenBlock from "./AwardGiven";
 import { mapState } from "vuex";
 export default {
-  components: { AwardGivenBlock },
+  components: {},
   data() {
     return {};
   },
   computed: {
-    ...mapState(["awards", "isAwardGiven", "awardGiven"]),
+    ...mapState(["awards"]),
   },
   methods: {
     getAward(award) {

@@ -1,8 +1,17 @@
 <template>
   <v-app app>
-    
+   <div class="" v-if="$store.state.gamified">
+     <transition
+      enter-active-class="animate__animated animate__bounce animate__slow"
+      leave-active-class="animate__animated animate__fadeOutTopRight animate__slow"
+    >
+      <award-given-block
+        v-if="isAwardGiven"
+        :awardGiven="awardGiven"
+      ></award-given-block>
+    </transition>
+   </div>
 
-    
     <top-bar></top-bar>
 
     <v-main app v-show="true">
@@ -17,11 +26,11 @@
 <script>
 /* eslint-disable */
 import icon from "./assets/icon.js";
-
+import AwardGivenBlock from "./components/AwardGiven";
 import { ParticlesBg } from "particles-bg-vue";
 import Market from "./components/Market";
+import { mapState } from "vuex";
 
-import { differenceInSeconds, addSeconds, getTime } from "date-fns";
 import TopBar from "./components/TopBar";
 
 import gsap from "gsap";
@@ -44,20 +53,13 @@ const formatUp = {
 export default {
   name: "App",
   components: {
+    AwardGivenBlock,
     Market,
     TopBar,
     ParticlesBg,
   },
   data: function () {
-    const minx = Date.UTC(2009, 0, 1);
-    const maxx = getTime(addSeconds(new Date(), tickFrequency * maxPrices));
-
     return {
-      gamified: window.gamified,
-      training: window.training,
-
-      awardJustGiven: null,
-      isAwardGiven: false,
       timeInTrade: 0,
 
       particle_type: "fountain",
@@ -83,8 +85,6 @@ export default {
           duration: 1000,
         },
       },
-      minx,
-      maxx,
       prices: [],
       startingPrice,
       currentPrice: startingPrice,
@@ -140,6 +140,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(["isAwardGiven", "awardGiven"]),
     getMenuStyle() {
       return this.training ? { top: "25px" } : null;
     },

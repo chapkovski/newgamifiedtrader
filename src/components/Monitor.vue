@@ -13,13 +13,15 @@ export default {
   watch: {
     transactionCounter(v) {
       if (this.awardTrades.includes(v)) {
+        if (this.$store.state.gamified) {
         this.$confetti.start({ defaultType: "heart" });
+        }
         this.giveAward();
         this.awardShow();
         const that = this;
         setTimeout(function () {
           that.$confetti.stop();
-          // that.awardHide();
+          that.awardHide();
         }, 2000);
       }
     },

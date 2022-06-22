@@ -12,8 +12,7 @@
       <v-switch
         class="mx-3"
         label="Gamified"
-        :value="gamified"
-        @click="switchGamification"
+        v-model="gamified"
         dense
         hide-details
       ></v-switch>
@@ -49,7 +48,17 @@ export default {
   data() {
     return {};
   },
-  computed: { ...mapState(["gamified"]) },
+  computed: {
+    ...mapState({ internalGamified: "gamified" }),
+    gamified: {
+      get() {
+        return this.internalGamified;
+      },
+      set(newValue) {
+        this.switchGamification();
+      },
+    },
+  },
   methods: {
     ...mapMutations({ switchGamification: "SWITCH_GAMIFICATION" }),
   },

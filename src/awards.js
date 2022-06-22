@@ -3,7 +3,7 @@ const awards = [
     lock: true,
     locked: require("@/assets/bronze_locked.png"),
     unlocked: require("@/assets/bronze.png"),
-    message: "Level up! Doing well",
+    message: "Level up! Doing well 👍",
     url: "https://bit.ly/3xtGrWk",
   },
 
