@@ -1,8 +1,10 @@
 <template>
   <v-app app>
+    
+
+    
     <top-bar></top-bar>
 
-     
     <v-main app v-show="true">
       <v-row fill-height style="height: 100%">
         <market name="A"></market>
@@ -45,7 +47,6 @@ export default {
     Market,
     TopBar,
     ParticlesBg,
-    
   },
   data: function () {
     const minx = Date.UTC(2009, 0, 1);

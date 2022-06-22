@@ -6,6 +6,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    isAwardGiven: false,
+    awardGiven: {},
     gamified: true,
     transactionCounter: 0,
     awardTrades: [1, 2, 3, 4, 5],
@@ -73,12 +75,23 @@ export default new Vuex.Store({
     SWITCH_GAMIFICATION(state) {
       state.gamified = !state.gamified;
     },
+    AWARD_SHOW(state) {
+      state.isAwardGiven = true;
+    },
+    AWARD_HIDE(state) {
+      state.isAwardGiven = false;
+    },
+    PROVIDE_GIVEN_AWARD(state, award) {
+      state.awardGiven = award;
+    },
   },
   actions: {
     giveAward({ commit, state }) {
       const ind = state.awardTrades.indexOf(state.transactionCounter);
       if (ind >= 0) {
+        const award = state.awards[ind];
         commit("UNLOCK_AWARD", ind);
+        commit("PROVIDE_GIVEN_AWARD", award);
       }
     },
     async nextTick({ commit, dispatch, getters }) {

@@ -1,5 +1,9 @@
 <template>
   <div class="d-flex">
+    <award-given-block
+      v-if="isAwardGiven"
+      :awardGiven="awardGiven"
+    ></award-given-block>
     <v-img
       v-for="(award, ind) in awards"
       max-height="50"
@@ -12,14 +16,15 @@
 </template>
 
 <script>
+import AwardGivenBlock from "./AwardGiven";
 import { mapState } from "vuex";
 export default {
-  components: {},
+  components: { AwardGivenBlock },
   data() {
     return {};
   },
   computed: {
-    ...mapState(["awards"]),
+    ...mapState(["awards", "isAwardGiven", "awardGiven"]),
   },
   methods: {
     getAward(award) {
