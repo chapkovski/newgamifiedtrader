@@ -24,6 +24,7 @@
     "vue": "^2.6.11",
     "vue-awesome-countdown": "^1.1.4",
     "vue-breathing-colors": "^0.0.7",
+    "vue-confetti": "^2.3.0",
     "vue-native-websocket": "^2.0.15",
     "vue-round-slider": "^1.0.1",
     "vue-typical": "1.6.2",

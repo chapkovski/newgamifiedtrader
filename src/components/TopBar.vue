@@ -1,5 +1,6 @@
 <template>
   <v-app-bar app clipped-left class="">
+    <monitor></monitor>
     <instructions-dialog></instructions-dialog>
     <pill label="Cash" :value="`\$${$store.state.cash}`"></pill>
     <v-spacer class="flex-grow-1 flex-shrink-0"></v-spacer>
@@ -8,7 +9,14 @@
       style="height: 100%"
     >
       <award-block v-if="gamified"></award-block>
-      <v-switch class="mx-3" label="Gamified" :value="gamified" @click='switchGamification' dense hide-details></v-switch>
+      <v-switch
+        class="mx-3"
+        label="Gamified"
+        :value="gamified"
+        @click="switchGamification"
+        dense
+        hide-details
+      ></v-switch>
     </div>
     <template #extension>
       <timer
@@ -29,19 +37,21 @@ import Timer from "./TickProgress";
 import AwardBlock from "./AwardBlock";
 import Pill from "./Pill";
 import { mapState, mapMutations } from "vuex";
+import Monitor from "./Monitor";
 export default {
   components: {
     InstructionsDialog,
     AwardBlock,
     Pill,
     Timer,
+    Monitor,
   },
   data() {
     return {};
   },
   computed: { ...mapState(["gamified"]) },
   methods: {
-    ...mapMutations({switchGamification:'SWITCH_GAMIFICATION'})
+    ...mapMutations({ switchGamification: "SWITCH_GAMIFICATION" }),
   },
 };
 </script>

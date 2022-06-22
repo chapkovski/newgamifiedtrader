@@ -1,7 +1,8 @@
 <template>
   <v-app app>
     <top-bar></top-bar>
-    <monitor></monitor>
+
+     
     <v-main app v-show="true">
       <v-row fill-height style="height: 100%">
         <market name="A"></market>
@@ -20,7 +21,7 @@ import Market from "./components/Market";
 
 import { differenceInSeconds, addSeconds, getTime } from "date-fns";
 import TopBar from "./components/TopBar";
-import Monitor from "./components/Monitor";
+
 import gsap from "gsap";
 import _ from "lodash";
 import add from "date-fns/fp/add/index.js";
@@ -44,7 +45,7 @@ export default {
     Market,
     TopBar,
     ParticlesBg,
-    Monitor,
+    
   },
   data: function () {
     const minx = Date.UTC(2009, 0, 1);
