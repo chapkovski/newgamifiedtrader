@@ -1,10 +1,15 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import awards from "./awards";
 import _ from "lodash";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    gamified: true,
+    transactionCounter: 0,
+    awardTrades: [1, 2, 3, 4, 5],
+    awards,
     counter: 0,
     cash: 50,
     pause: false,
@@ -26,6 +31,12 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    UNLOCK_AWARD(state, ind) {
+      state.awards[ind].lock = false;
+    },
+    INCREASE_TRANSACTION_COUNTER(state) {
+      state.transactionCounter++;
+    },
     INCREASE_COUNTER(state) {
       state.counter++;
     },
@@ -59,8 +70,17 @@ export default new Vuex.Store({
     UPDATE_CASH(state, { value }) {
       state.cash += value;
     },
+    SWITCH_GAMIFICATION(state) {
+      state.gamified = !state.gamified;
+    },
   },
   actions: {
+    giveAward({ commit, state }) {
+      const ind = state.awardTrades.indexOf(state.transactionCounter);
+      if (ind >= 0) {
+        commit("UNLOCK_AWARD", ind);
+      }
+    },
     async nextTick({ commit, dispatch, getters }) {
       commit("INCREASE_COUNTER");
       const priceA = _.random(50, 150);
@@ -81,6 +101,7 @@ export default new Vuex.Store({
     },
     purchase({ commit, getters }, { market }) {
       if (getters.isTransactionAllowed(market, "buy")) {
+        commit("INCREASE_TRANSACTION_COUNTER");
         const currentMarket = getters.getMarket(market);
         commit("BUY_SHARE", { market });
         const value = currentMarket.currentPrice;
@@ -92,6 +113,7 @@ export default new Vuex.Store({
     },
     sell({ commit, getters }, { market }) {
       if (getters.isTransactionAllowed(market, "sell")) {
+        commit("INCREASE_TRANSACTION_COUNTER");
         commit("SELL_SHARE", { market });
         const currentMarket = getters.getMarket(market);
         const value = null;
