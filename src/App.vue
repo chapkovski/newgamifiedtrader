@@ -1,16 +1,16 @@
 <template>
   <v-app app>
-   <div class="" v-if="$store.state.gamified">
-     <transition
-      enter-active-class="animate__animated animate__bounce animate__slow"
-      leave-active-class="animate__animated animate__fadeOutTopRight animate__slow"
-    >
-      <award-given-block
-        v-if="isAwardGiven"
-        :awardGiven="awardGiven"
-      ></award-given-block>
-    </transition>
-   </div>
+    <div class="" v-if="$store.state.gamified">
+      <transition
+        enter-active-class="animate__animated animate__bounce animate__slow"
+        leave-active-class="animate__animated animate__fadeOutTopRight animate__slow"
+      >
+        <award-given-block
+          v-if="isAwardGiven"
+          :awardGiven="awardGiven"
+        ></award-given-block>
+      </transition>
+    </div>
 
     <top-bar></top-bar>
 
@@ -25,7 +25,7 @@
 
 <script>
 /* eslint-disable */
-import icon from "./assets/icon.js";
+
 import AwardGivenBlock from "./components/AwardGiven";
 import { ParticlesBg } from "particles-bg-vue";
 import Market from "./components/Market";
@@ -40,15 +40,7 @@ import add from "date-fns/fp/add/index.js";
 const maxPrices = window.max_length;
 const startingPrice = window.starting_price;
 const tickFrequency = window.tick_frequency;
-
-const formatDown = {
-  color: "red",
-  icon: "mdi-arrow-down-bold",
-};
-const formatUp = {
-  color: "green darken-3",
-  icon: "mdi-arrow-up-bold",
-};
+ 
 
 export default {
   name: "App",
@@ -62,21 +54,8 @@ export default {
     return {
       timeInTrade: 0,
 
-      particle_type: "fountain",
-      heartConfig: {
-        num: [4, 7],
-        rps: 0.1,
-        radius: [5, 40],
-        life: [1.5, 3],
-        v: [2, 3],
-        tha: [-30, 30],
-        body: icon,
-        alpha: [0.6, 0],
-        scale: [0.1, 0.4],
-        position: "all",
-        cross: "dead",
-        random: 1,
-      },
+      
+      
 
       sample: {
         colors: ["red", "green", "blue"],

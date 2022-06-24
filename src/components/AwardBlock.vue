@@ -6,8 +6,6 @@
       >
         <v-img
           contain
-          max-height="50"
-          max-width="50"
           :key="getAward(award)"
           :src="getAward(award)"
           class="mx-3"
