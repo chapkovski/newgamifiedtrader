@@ -8,7 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     startTime: new Date(),
-    showPredictionAt: 10,
+    showPredictionAt: window.predictionAt,
     isAwardGiven: false,
     awardGiven: {},
     training: window.training || false,

@@ -2,7 +2,7 @@
   <countdown
     :autoStart="true"
     ref="tickTimer"
-    :leftTime="1000"
+    :leftTime="tickFrequency"
     :style="{ width: '100%' }"
     @finish="toDo()"
   >
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+const MILLISECONDS = 1000;
 import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   name: "Timer",
@@ -31,7 +32,7 @@ export default {
     showProgress: { type: Boolean, default: true },
   },
   data() {
-    return {};
+    return {tickFrequency:window.tickFrequency*MILLISECONDS};
   },
   computed: {
     ...mapState(["pause"]),
