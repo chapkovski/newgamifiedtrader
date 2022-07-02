@@ -5,13 +5,14 @@
     :leftTime="tickFrequency"
     :style="{ width: '100%' }"
     @finish="toDo()"
+    :speed="100"
   >
     <template #process="{ timeObj }">
       <v-progress-linear
         width="100%"
         height="15px"
         :color="color"
-        :value="(timeObj.leftTime / 1000 / secsToEnd) * 100"
+        :value="(timeObj.leftTime / tickFrequency) * 100"
       >
       </v-progress-linear>
     </template>
@@ -24,7 +25,6 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   name: "Timer",
   props: {
-    secsToEnd: Number,
     progressMessage: String,
     whatToDo: String,
     color: String,
@@ -32,7 +32,7 @@ export default {
     showProgress: { type: Boolean, default: true },
   },
   data() {
-    return {tickFrequency:window.tickFrequency*MILLISECONDS};
+    return { tickFrequency: window.tickFrequency * MILLISECONDS };
   },
   computed: {
     ...mapState(["pause"]),
@@ -51,7 +51,12 @@ export default {
     ...mapMutations(["PAUSE"]),
     toDo() {
       this.nextTick();
-      this.$refs.tickTimer.startCountdown(true);
+      const that = this;
+      setTimeout(function () {
+        if (!that.pause) {
+        that.$refs.tickTimer.startCountdown(true);
+        }
+      }, 500);
     },
   },
 };

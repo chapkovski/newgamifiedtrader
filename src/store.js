@@ -9,12 +9,13 @@ export default new Vuex.Store({
   state: {
     startTime: new Date(),
     showPredictionAt: window.predictionAt,
+    
     isAwardGiven: false,
     awardGiven: {},
     training: window.training || false,
-    gamified: window.gamified,
+    gamified: true,
     transactionCounter: 0,
-    awardTrades: [1, 2, 3, 4, 5],
+    awardTrades: [10, 20, 30, 40, 50],
     awards,
     counter: window.counter || 0,
     cash: 50,

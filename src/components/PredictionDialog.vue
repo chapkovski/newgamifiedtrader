@@ -49,9 +49,9 @@ export default {
     return {
       dialog: true,
       stockUpA: 0,
-      condifenceA: 0,
+      confidenceA: 0,
       stockUpB: 0,
-      condifenceB: 0,
+      confidenceB: 0,
     };
   },
   mounted() {

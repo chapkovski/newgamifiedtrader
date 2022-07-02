@@ -44,7 +44,7 @@
     </div>
     <template #extension>
       <timer
-        :secs-to-end="6"
+        
         what-to-do="allowExitPermission"
         :progress-message="''"
         :show-progress="true"
