@@ -35,9 +35,7 @@
 </template>
 
 <script>
-const maxPrices = window.max_length;
-const startingPrice = window.starting_price;
-const tickFrequency = window.tick_frequency;
+
 import BuySellBar from "./BuySellBar";
 import InfoBar from "./InfoBar";
 import Pill from "./Pill";
@@ -53,14 +51,12 @@ export default {
   },
   props: ["name"],
   data() {
-    const rawData = [startingPrice, ..._.fill(Array(10), null)];
+    const rawData = [100, ..._.fill(Array(10), null)];
     return {
       chartHeight: 0,
       prices: [],
       xAxis: { min: new Date().getTime() },
-      startingPrice,
       tickFrequency: window.tick_frequency,
-      currentPrice: startingPrice,
       rawData: rawData,
 
       chartOptions: {
@@ -136,7 +132,7 @@ export default {
   },
   computed: {
     ...mapState(["counter"]),
-    ...mapGetters(["getMarket"]),
+    ...mapGetters(["getMarket", ]),
     market() {
       return this.getMarket(this.name);
     },

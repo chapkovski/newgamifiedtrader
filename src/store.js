@@ -9,11 +9,11 @@ export default new Vuex.Store({
   state: {
     startTime: new Date(),
     showPredictionAt: window.predictionAt,
-    
+    tradingAt: window.tradingAt,
     isAwardGiven: false,
     awardGiven: {},
     training: window.training || false,
-    gamified: true,
+    gamified: window.gamified || false,
     transactionCounter: 0,
     awardTrades: [10, 20, 30, 40, 50],
     awards,
@@ -232,6 +232,11 @@ export default new Vuex.Store({
       () => {
         return counter === showPredictionAt;
       },
+    tradingAllowed:
+      ({ tradingAt, counter }) =>
+      () => {
+        return counter >= tradingAt;
+      },
     endGame:
       ({ counter }) =>
       () => {
@@ -239,9 +244,11 @@ export default new Vuex.Store({
       },
     isTransactionAllowed: (state, getters) => (marketName, operation) => {
       const market = getters.getMarket(marketName);
-      if (operation === "buy") {
-        return market.shares === 0 && market.currentPrice <= state.cash;
-      }
+      const isTradingAllowed = getters.tradingAllowed()
+      if (!isTradingAllowed) return false
+        if (operation === "buy") {
+          return market.shares === 0 && market.currentPrice <= state.cash;
+        }
 
       if (operation === "sell") {
         return market.shares === 1;

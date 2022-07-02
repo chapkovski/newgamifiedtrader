@@ -1,6 +1,7 @@
 <template>
   <v-app app>
-    <prediction-dlg v-if="$store.getters.showPredictionDlg()"></prediction-dlg>
+    <trade-allowed-dialog v-if="$store.getters.tradingAllowed()"></trade-allowed-dialog>
+    <prediction-dlg   v-if="$store.getters.showPredictionDlg()" ></prediction-dlg>
     <div class="" v-if="$store.state.gamified">
       <transition
         enter-active-class="animate__animated animate__bounce animate__slow"
@@ -45,16 +46,18 @@ import { mapGetters, mapState, mapActions, mapMutations } from "vuex";
 
 import TopBar from "./components/TopBar";
 import PredictionDlg from "./components/PredictionDialog";
+import TradeAllowedDialog from "./components/TradeAllowedDialog";
 
 import _ from "lodash";
 
-const startingPrice = window.starting_price;
+
 
 export default {
   name: "App",
   components: {
     AwardGivenBlock,
     PredictionDlg,
+    TradeAllowedDialog,
     Market,
     TopBar,
   },
@@ -68,11 +71,7 @@ export default {
           duration: 1000,
         },
       },
-      prices: [],
-      startingPrice,
-      currentPrice: startingPrice,
-
-      onPause: false,
+      
       startTime: new Date(),
       endTime: null,
       timeSpent: null,
