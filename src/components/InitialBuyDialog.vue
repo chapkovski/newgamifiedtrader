@@ -1,21 +1,11 @@
 <template>
   <div class="text-center">
     <v-dialog  v-model="dialog" width="800">
-       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="green white--text"
-          small
-          v-bind="attrs"
-          v-on="on"
-          class='mx-1'
-        >
-          Instructions
-        </v-btn>
-      </template>
+      
       <v-card>
-        <v-card-title class="text-h5 grey lighten-2"> Instructions </v-card-title>
+        <v-card-title class="text-h5 grey lighten-2">   Purchasing initial stock </v-card-title>
 
-        <v-card-text v-html="instructions" class="text-left">
+        <v-card-text   class="text-left">
            
         </v-card-text>
 
@@ -27,7 +17,7 @@
             color="primary"
             text
            
-         @click="closeDialog"
+          @click="closeDialog"
           >
             Close
           </v-btn>
@@ -43,7 +33,7 @@ export default {
   data() {
     return {
       dialog: false,
-      instructions:document.getElementById('instructions').innerHTML
+      
     };
   },
    

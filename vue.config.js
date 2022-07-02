@@ -2,19 +2,17 @@ const path = require("path");
 
 module.exports = {
   lintOnSave: false,
-  // pages: {
-  //   main: {
-  //     entry: "./src/main.js",
-  //     chunks: ["chunk-vendors"],
-  //   }
-
-  // },
+  pages: {
+    main: {
+      entry: "./src/main.js",
+      chunks: ["chunk-vendors"],
+    },
+  },
   // Should be STATIC_URL + path/to/build
-  publicPath:
-    process.env.NODE_ENV === "production" ? "/newgamifiedtrader/" : "/",
+  publicPath: "/static/front/",
 
   // Output to a directory in STATICFILES_DIRS
-  // outputDir: path.resolve(__dirname, "../_static/front/"),
+  outputDir: path.resolve(__dirname, "../_static/front/"),
 
   // Django will hash file names, not webpack
   filenameHashing: false,

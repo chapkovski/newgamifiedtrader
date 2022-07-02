@@ -1,5 +1,6 @@
 <template>
   <v-app app>
+    <prediction-dlg v-if="$store.getters.showPredictionDlg()"></prediction-dlg>
     <div class="" v-if="$store.state.gamified">
       <transition
         enter-active-class="animate__animated animate__bounce animate__slow"
@@ -11,7 +12,18 @@
         ></award-given-block>
       </transition>
     </div>
-
+    <v-system-bar
+      app
+      dark
+      v-if="$store.state.training"
+      color="red "
+      height="30"
+      class="d-flex justify-center"
+    >
+      <div class="text-center">
+        <b>TRAINING ROUND</b>
+      </div>
+    </v-system-bar>
     <top-bar></top-bar>
 
     <v-main app v-show="true">
@@ -27,36 +39,28 @@
 /* eslint-disable */
 
 import AwardGivenBlock from "./components/AwardGiven";
-import { ParticlesBg } from "particles-bg-vue";
+
 import Market from "./components/Market";
-import { mapState } from "vuex";
+import { mapGetters, mapState, mapActions, mapMutations } from "vuex";
 
 import TopBar from "./components/TopBar";
+import PredictionDlg from "./components/PredictionDialog";
 
-import gsap from "gsap";
 import _ from "lodash";
-import add from "date-fns/fp/add/index.js";
 
-const maxPrices = window.max_length;
 const startingPrice = window.starting_price;
-const tickFrequency = window.tick_frequency;
- 
 
 export default {
   name: "App",
   components: {
     AwardGivenBlock,
+    PredictionDlg,
     Market,
     TopBar,
-    ParticlesBg,
   },
   data: function () {
     return {
       timeInTrade: 0,
-
-      
-      
-
       sample: {
         colors: ["red", "green", "blue"],
         interval: 3000,
@@ -69,7 +73,6 @@ export default {
       currentPrice: startingPrice,
 
       onPause: false,
-      counter: 0,
       startTime: new Date(),
       endTime: null,
       timeSpent: null,
@@ -119,7 +122,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(["isAwardGiven", "awardGiven"]),
+    ...mapState(["isAwardGiven", "awardGiven", "counter", "socket"]),
+    ...mapGetters(["showPredictionDlg", "endGame"]),
     getMenuStyle() {
       return this.training ? { top: "25px" } : null;
     },
@@ -137,12 +141,26 @@ export default {
     },
   },
   watch: {
+    "socket.isConnected"(v) {
+      if (v == true) {
+        this.sendMessage({ name: "GAME_STARTS" });
+      }
+    },
     dialog(v) {
       this.onPause = v;
     },
+    counter(v) {
+      if (v >= window.initialPricesA.length) {
+        document.getElementById("form").submit();
+      }
+    },
   },
-
+  mounted() {
+    this.SET_START_TIME();
+  },
   methods: {
+    ...mapActions(["sendMessage"]),
+    ...mapMutations(["SET_START_TIME"]),
     tweenUpd(v) {
       this.tweenedPrice = _.round(this.tweenedPrice, 2);
     },

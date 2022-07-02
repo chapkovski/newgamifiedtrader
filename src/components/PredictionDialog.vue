@@ -1,36 +1,41 @@
 <template>
   <div class="text-center">
-    <v-dialog  v-model="dialog" width="800">
-       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="green white--text"
-          small
-          v-bind="attrs"
-          v-on="on"
-          class='mx-1'
-        >
-          Instructions
-        </v-btn>
-      </template>
+    <v-dialog v-model="dialog" persistent width="600">
       <v-card>
-        <v-card-title class="text-h5 grey lighten-2"> Instructions </v-card-title>
+        <v-card-title class="text-h5 grey lighten-2">
+          Predictions
+        </v-card-title>
 
-        <v-card-text v-html="instructions" class="text-left">
-           
+        <v-card-text class="text-left">
+          <v-sheet outlined class="m-3 p-3" rounded elevation="3">
+            <h5>How likely is Stock <b>A</b> to go up next?</h5>
+            <v-slider label="0" min="0" max="5" v-model="stockUpA">
+              <template #append>5</template>
+            </v-slider>
+            <h5>How confident are you in the assessment?</h5>
+            <v-slider label="0" min="0" max="5" v-model="confidenceA">
+              <template #append>5</template>
+            </v-slider>
+          </v-sheet>
+
+          <v-sheet outlined class="m-3 p-3" rounded elevation="3">
+            <h5>How likely is Stock <b>B</b> to go up next?</h5>
+            <v-slider label="0" min="0" max="5" v-model="stockUpB">
+              <template #append>5</template>
+            </v-slider>
+
+            <h5>How confident are you in the assessment?</h5>
+            <v-slider label="0" min="0" max="5" v-model="confidenceB">
+              <template #append>5</template>
+            </v-slider>
+          </v-sheet>
         </v-card-text>
 
         <v-divider></v-divider>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            text
-           
-         @click="closeDialog"
-          >
-            Close
-          </v-btn>
+          <v-btn color="primary" @click="closeDialog"> Submit </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -38,21 +43,37 @@
 </template>
 
 <script>
-
+import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      dialog: false,
-      instructions:document.getElementById('instructions').innerHTML
+      dialog: true,
+      stockUpA: 0,
+      condifenceA: 0,
+      stockUpB: 0,
+      condifenceB: 0,
     };
   },
-   
+  mounted() {
+    this.PAUSE();
+  },
+
   methods: {
-    closeDialog() {
-      
+    ...mapActions(["nextTick", "sendMessage"]),
+    ...mapMutations(["PAUSE"]),
+    async closeDialog() {
+      const { stockUpA, stockUpB, confidenceA, confidenceB } = this;
+      await this.sendMessage({
+        name: "PREDICTIONS_SENT",
+        action: "predictions_send",
+        stockUpA,
+        stockUpB,
+        confidenceA,
+        confidenceB,
+      });
+      this.nextTick();
       this.dialog = false;
     },
-   
   },
 };
 </script>

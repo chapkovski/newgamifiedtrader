@@ -38,16 +38,17 @@ export default {
   },
   watch: {
     pause(v) {
-      //   if (v === true) {
-      //     this.$refs.tickTimer.stopCountdown();
-      //   }
+      if (v === true) {
+        this.$refs.tickTimer.stopCountdown();
+      } else {
+        this.$refs.tickTimer.startCountdown(true);
+      }
     },
   },
   methods: {
     ...mapActions(["nextTick"]),
     ...mapMutations(["PAUSE"]),
     toDo() {
-      this.PAUSE();
       this.nextTick();
       this.$refs.tickTimer.startCountdown(true);
     },
