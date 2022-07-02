@@ -1,7 +1,9 @@
 <template>
   <v-app app>
-    <trade-allowed-dialog v-if="$store.getters.tradingAllowed()"></trade-allowed-dialog>
-    <prediction-dlg   v-if="$store.getters.showPredictionDlg()" ></prediction-dlg>
+    <trade-allowed-dialog
+      v-if="$store.getters.tradingAllowed()"
+    ></trade-allowed-dialog>
+    <prediction-dlg v-if="$store.getters.showPredictionDlg()"></prediction-dlg>
     <div class="" v-if="$store.state.gamified">
       <transition
         enter-active-class="animate__animated animate__bounce animate__slow"
@@ -23,6 +25,13 @@
     >
       <div class="text-center">
         <b>TRAINING ROUND</b>
+      </div>
+    </v-system-bar>
+    <v-system-bar app dark v-else height="50" class="d-flex justify-center">
+      <div class="text-center text-h5">
+        <b v-if="$store.state.gamified"
+          >Odds to win E$1,000 sweepstake: {{ fullLoteryProb() }} in 1000</b
+        >
       </div>
     </v-system-bar>
     <top-bar></top-bar>
@@ -50,8 +59,6 @@ import TradeAllowedDialog from "./components/TradeAllowedDialog";
 
 import _ from "lodash";
 
-
-
 export default {
   name: "App",
   components: {
@@ -71,7 +78,7 @@ export default {
           duration: 1000,
         },
       },
-      
+
       startTime: new Date(),
       endTime: null,
       timeSpent: null,
@@ -122,7 +129,7 @@ export default {
   },
   computed: {
     ...mapState(["isAwardGiven", "awardGiven", "counter", "socket"]),
-    ...mapGetters(["showPredictionDlg", "endGame"]),
+    ...mapGetters(["showPredictionDlg", "endGame", "fullLoteryProb"]),
     getMenuStyle() {
       return this.training ? { top: "25px" } : null;
     },

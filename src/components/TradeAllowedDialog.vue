@@ -1,6 +1,6 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog" width="400">
+    <v-dialog v-model="dialog" persistent width="400">
       <v-card>
         <v-card-title class="text-h5 red"> Information </v-card-title>
 

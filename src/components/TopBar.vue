@@ -27,6 +27,7 @@
         <div>{{ msg()("B") }}</div>
       </v-sheet>
     </div>
+    <v-spacer v-if="gamified"></v-spacer>
     <div
       class="flex-grow-0 flex-shrink-0 d-flex align-center"
       style="height: 100%"
