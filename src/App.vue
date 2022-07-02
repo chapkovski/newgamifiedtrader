@@ -1,7 +1,7 @@
 <template>
   <v-app app>
     <trade-allowed-dialog
-      v-if="$store.getters.tradingAllowed()"
+      v-if="$store.getters.tradingAllowed() && !$store.state.training"
     ></trade-allowed-dialog>
     <prediction-dlg v-if="$store.getters.showPredictionDlg()"></prediction-dlg>
     <div class="" v-if="$store.state.gamified">
