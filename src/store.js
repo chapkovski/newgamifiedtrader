@@ -20,7 +20,7 @@ export default new Vuex.Store({
     training: window.training || false,
     // training: false,
     gamified: window.gamified || false,
-    gamified: false,
+    // gamified: false,
     transactionCounter: 0,
     awardTrades: [10, 20, 30, 40, 50],
     // awardTrades: [1, 2, 3, 4, 5],
