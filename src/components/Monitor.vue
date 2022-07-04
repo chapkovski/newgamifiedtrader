@@ -13,11 +13,11 @@ export default {
   watch: {
     "$store.state.marketA.priceDynamicCounter"(v) {
       const absDynamic = Math.abs(v);
-      if (v > 1) this.addSnackMessage("A", v, absDynamic);
+      if (absDynamic > 1) this.addSnackMessage("A", v, absDynamic);
     },
     "$store.state.marketB.priceDynamicCounter"(v) {
       const absDynamic = Math.abs(v);
-      if (v > 1) this.addSnackMessage("B", v, absDynamic);
+      if (absDynamic > 1) this.addSnackMessage("B", v, absDynamic);
     },
     transactionCounter(v) {
       if (this.awardTrades.includes(v)) {
@@ -55,7 +55,7 @@ export default {
         message: msg,
         color: directionColor,
         top: true,
-        absolute:true
+        absolute: true,
       });
       const that = this;
       setTimeout(() => that.removeSnackMessage(), 3000);
