@@ -13,6 +13,7 @@ export default {
   watch: {
     "$store.state.marketA.priceDynamicCounter"(v) {
       const absDynamic = Math.abs(v);
+      console.debug("JOJOJOJOJOJ", absDynamic)
       if (absDynamic > 1) this.addSnackMessage("A", v, absDynamic);
     },
     "$store.state.marketB.priceDynamicCounter"(v) {

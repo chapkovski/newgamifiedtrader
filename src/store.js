@@ -178,19 +178,22 @@ export default new Vuex.Store({
       const { shares, purchasePrice, currentPrice, priceDynamicCounter } =
         currentMarket;
       const priceDiff = value - currentPrice;
-      if (priceDiff >= 0 && priceDynamicCounter >= 0) {
-        commit("UPDATE_DYNAMIC_COUNTER", {
-          market,
-          value: priceDynamicCounter + 1,
-        });
-      } else if (priceDiff < 0 && priceDynamicCounter < 0) {
-        commit("UPDATE_DYNAMIC_COUNTER", {
-          market,
-          value: priceDynamicCounter - 1,
-        });
+      if (priceDynamicCounter !==0 && priceDiff * priceDynamicCounter < 0) {
+        commit("UPDATE_DYNAMIC_COUNTER", { market, value: Math.sign(priceDiff) });
       } else {
-        commit("UPDATE_DYNAMIC_COUNTER", { market, value: 0 });
+        if (priceDiff > 0) {
+          commit("UPDATE_DYNAMIC_COUNTER", {
+            market,
+            value: priceDynamicCounter + 1,
+          });
+        } else if (priceDiff < 0) {
+          commit("UPDATE_DYNAMIC_COUNTER", {
+            market,
+            value: priceDynamicCounter - 1,
+          });
+        }
       }
+
       commit("ADD_PRICE_TO_HISTORY", { market, value });
       commit("UPDATE_PRICE", { market, value });
 
