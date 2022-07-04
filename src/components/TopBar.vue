@@ -6,27 +6,7 @@
     <pill label="Round" :value="getRoundInfo()"></pill>
     <pill label="Price updates left" :value="getPriceUpdatesLeft()"></pill>
 
-    <div
-      class="flex-grow-1 flex-shrink-0 d-flex p-1"
-      style="height: 100%"
-      v-if="!gamified"
-    >
-      <v-sheet
-        elevation="3"
-        outlined
-        rounded
-        class="
-          flex-grow-1 flex-shrink-0
-          d-flex
-          flex-column
-          justify-center
-          align-center
-        "
-      >
-        <div>{{ msg()("A") }}</div>
-        <div>{{ msg()("B") }}</div>
-      </v-sheet>
-    </div>
+   
     <v-spacer v-if="gamified"></v-spacer>
     <div
       class="flex-grow-0 flex-shrink-0 d-flex align-center"

@@ -33,6 +33,7 @@ export default {
   },
   data() {
     return { tickFrequency: window.tickFrequency * MILLISECONDS };
+    // return { tickFrequency: 1 * MILLISECONDS };
   },
   computed: {
     ...mapState(["pause"]),
@@ -54,7 +55,7 @@ export default {
       const that = this;
       setTimeout(function () {
         if (!that.pause) {
-        that.$refs.tickTimer.startCountdown(true);
+          that.$refs.tickTimer.startCountdown(true);
         }
       }, 500);
     },

@@ -10,20 +10,20 @@ export default new Vuex.Store({
     baseLotteryProb: 0.02,
     tradeHappened: false,
     tradingTicksCounter: 0,
-
+    snackMessages: [],
     startTime: new Date(),
     showPredictionAt: window.predictionAt,
-    // tradingAt: window.tradingAt,
-    tradingAt: 0,
+    tradingAt: window.tradingAt,
+    // tradingAt: 0,
     isAwardGiven: false,
     awardGiven: {},
     training: window.training || false,
     // training: false,
-    // gamified: window.gamified || false,
+    gamified: window.gamified || false,
     gamified: false,
     transactionCounter: 0,
-    // awardTrades: [10, 20, 30, 40, 50],
-    awardTrades: [1, 2, 3, 4, 5],
+    awardTrades: [10, 20, 30, 40, 50],
+    // awardTrades: [1, 2, 3, 4, 5],
     awards,
     counter: window.counter || 0,
     cash: 50,
@@ -63,6 +63,13 @@ export default new Vuex.Store({
     },
     SET_START_TIME(state) {
       state.startTime = new Date();
+    },
+    ADD_SNACK_MESSAGE(state, message) {
+      state.snackMessages.push(message);
+    },
+    REMOVE_SNACK_MESSAGE(state) {
+      console.debug("REOMVOE SNAKC RIEACH");
+      state.snackMessages.splice(0, 1);
     },
     UNLOCK_AWARD(state, ind) {
       state.awards[ind].lock = false;
@@ -240,17 +247,6 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    msg: (state, getters) => (marketName) => {
-      const market = getters.getMarket(marketName);
-      const { priceDynamicCounter } = market;
-
-      const absDynamic = Math.abs(priceDynamicCounter);
-      if (absDynamic < 2) return ``;
-      const direction = priceDynamicCounter > 0 ? "up" : "down";
-      const msg = `Alert: Stock ${marketName} went ${direction} ${absDynamic} times in a row`;
-      console.debug("MSG", msg);
-      return msg;
-    },
     fullLoteryProb:
       ({ baseLotteryProb, tradingTicksCounter }) =>
       () => {

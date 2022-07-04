@@ -37,11 +37,13 @@
     <top-bar></top-bar>
 
     <v-main app v-show="true">
-      <v-row fill-height style="height: 100%">
+      <v-row style="height: calc(100%)">
         <market name="A"></market>
         <market name="B"></market>
       </v-row>
     </v-main>
+
+    <i-bottom-bar v-if="!$store.state.gamified"></i-bottom-bar>
   </v-app>
 </template>
 
@@ -54,6 +56,7 @@ import Market from "./components/Market";
 import { mapGetters, mapState, mapActions, mapMutations } from "vuex";
 
 import TopBar from "./components/TopBar";
+import IBottomBar from "./components/IBottomBar";
 import PredictionDlg from "./components/PredictionDialog";
 import TradeAllowedDialog from "./components/TradeAllowedDialog";
 
@@ -67,6 +70,7 @@ export default {
     TradeAllowedDialog,
     Market,
     TopBar,
+    IBottomBar,
   },
   data: function () {
     return {

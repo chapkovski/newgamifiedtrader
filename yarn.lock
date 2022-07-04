@@ -9214,6 +9214,11 @@ uuid@^3.3.2, uuid@^3.4.0:
   resolved "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
+v-snackbars@^3.2.7:
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/v-snackbars/-/v-snackbars-3.2.7.tgz#3eff0e6523302abf1e2fd21b6ce07128001d9a71"
+  integrity sha512-/91p4cf/HDlZNWm0CNBzG8LUOSEavrbwi/UhoElZJqrl1GWtfY08IL+7RF7b0Jn7Q2wCHiFzY0UScuWuR9kRhQ==
+
 v8-compile-cache@^2.0.3:
   version "2.3.0"
   resolved "https://registry.npmjs.org/v8-compile-cache/-/v8-compile-cache-2.3.0.tgz"

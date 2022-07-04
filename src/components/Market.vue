@@ -1,7 +1,7 @@
 <template>
   <v-col cols="6" fill-height class="d-flex flex-column">
-    <div id="btns" class="flex-grow-0 flex-shrink-0">
-      Stock {{ name }}.
+    <div id="btns" class="flex-grow-0 flex-shrink-0 text-h4">
+      Stock {{ name }}
       <pill label="Current price" :value="market.currentPrice"></pill>
     </div>
     <div
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-
 import BuySellBar from "./BuySellBar";
 import InfoBar from "./InfoBar";
 import Pill from "./Pill";
@@ -132,7 +131,7 @@ export default {
   },
   computed: {
     ...mapState(["counter"]),
-    ...mapGetters(["getMarket", ]),
+    ...mapGetters(["getMarket"]),
     market() {
       return this.getMarket(this.name);
     },
