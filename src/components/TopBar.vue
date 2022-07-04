@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app clipped-left class="">
+  <v-app-bar app clipped-left class="" height="100">
     <monitor></monitor>
     <instructions-dialog></instructions-dialog>
     <pill label="Cash" :value="`\$${$store.state.cash}`"></pill>

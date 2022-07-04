@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex">
-    <div v-for="(award, ind) in awards" :key="ind" style="width: 60px">
+    <div v-for="(award, ind) in awards" :key="ind" style="width: 100px">
       <transition
         enter-active-class="animate__animated animate__flipInX animate__slow"
       >
