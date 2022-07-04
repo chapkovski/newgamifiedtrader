@@ -68,7 +68,7 @@ export default {
           },
         },
 
-        yAxis: { min: 25, max: 175 },
+        
         events: {
           load: (function (self) {
             return function () {
