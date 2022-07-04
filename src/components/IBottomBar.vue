@@ -1,6 +1,11 @@
 <template>
   <div class="text-center d-flex justify-center align-center">
-    <v-snackbars :objects="objects"></v-snackbars>
+    <v-snackbars :objects="objects">
+      <template v-slot:default="{ message }">
+    <h3 class="mb-2">{{ message }}</h3>
+    
+  </template>
+    </v-snackbars>
   </div>
 </template>
 

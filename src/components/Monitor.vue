@@ -54,7 +54,8 @@ export default {
       this.addSnackMessageToStore({
         message: msg,
         color: directionColor,
-        bottom: true,
+        top: true,
+        absolute:true
       });
       const that = this;
       setTimeout(() => that.removeSnackMessage(), 3000);
