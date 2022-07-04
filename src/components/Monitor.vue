@@ -1,6 +1,6 @@
 <template></template>
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations, mapGetters } from "vuex";
 import _ from "lodash";
 export default {
   props: ["value", "label"],
@@ -9,32 +9,37 @@ export default {
   },
   computed: {
     ...mapState(["transactionCounter", "awardTrades", "awardGiven"]),
+    ...mapGetters(["nTransactions"]),
   },
   watch: {
     "$store.state.marketA.priceDynamicCounter"(v) {
       const absDynamic = Math.abs(v);
-      console.debug("JOJOJOJOJOJ", absDynamic)
+      console.debug("JOJOJOJOJOJ", absDynamic);
       if (absDynamic > 1) this.addSnackMessage("A", v, absDynamic);
     },
     "$store.state.marketB.priceDynamicCounter"(v) {
       const absDynamic = Math.abs(v);
       if (absDynamic > 1) this.addSnackMessage("B", v, absDynamic);
     },
-    transactionCounter(v) {
-      if (this.awardTrades.includes(v)) {
-        if (this.$store.state.gamified) {
-          this.$confetti.start({ defaultType: "heart" });
-          this.pause();
-          this.giveAward();
-          this.awardShow();
-          const that = this;
-          setTimeout(function () {
-            that.$confetti.stop();
-            that.awardHide();
-            that.unpause();
-          }, 3000);
+    "$store.state.ticks": {
+      deep: true,
+      handler: function (newVal, oldVal) {
+        const v = this.nTransactions();
+        if (this.awardTrades.includes(v)) {
+          if (this.$store.state.gamified) {
+            this.$confetti.start({ defaultType: "heart" });
+            this.pause();
+            this.giveAward();
+            this.awardShow();
+            const that = this;
+            setTimeout(function () {
+              that.$confetti.stop();
+              that.awardHide();
+              that.unpause();
+            }, 3000);
+          }
         }
-      }
+      },
     },
   },
   methods: {

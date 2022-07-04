@@ -7,9 +7,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    ticks: _.map(window.initialPricesA, (i) => ({
+      tick: i,
+      tradeA: 0,
+      tradeB: 0,
+    })),
     baseLotteryProb: 0.02,
     tradeHappened: false,
-    tradingTicksCounter: 0,
     snackMessages: [],
     startTime: new Date(),
     showPredictionAt: window.predictionAt,
@@ -55,11 +59,8 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    SWITCH_TRADE_EVENT(state, value) {
-      state.tradeHappened = value;
-    },
-    TRADING_TICK_INCREASE(state) {
-      state.tradingTicksCounter++;
+    TRADING_TICK_INCREASE(state, market) {
+      state.ticks[state.counter][`trade${market}`] = 1;
     },
     SET_START_TIME(state) {
       state.startTime = new Date();
@@ -164,7 +165,7 @@ export default new Vuex.Store({
     },
     async nextTick({ commit, dispatch, state, getters }) {
       commit("INCREASE_COUNTER");
-      commit("SWITCH_TRADE_EVENT", false);
+
       const marketA = getters.getMarket("A");
       const marketB = getters.getMarket("B");
       const priceA = marketA.initialPrices[state.counter];
@@ -178,8 +179,11 @@ export default new Vuex.Store({
       const { shares, purchasePrice, currentPrice, priceDynamicCounter } =
         currentMarket;
       const priceDiff = value - currentPrice;
-      if (priceDynamicCounter !==0 && priceDiff * priceDynamicCounter < 0) {
-        commit("UPDATE_DYNAMIC_COUNTER", { market, value: Math.sign(priceDiff) });
+      if (priceDynamicCounter !== 0 && priceDiff * priceDynamicCounter < 0) {
+        commit("UPDATE_DYNAMIC_COUNTER", {
+          market,
+          value: Math.sign(priceDiff),
+        });
       } else {
         if (priceDiff > 0) {
           commit("UPDATE_DYNAMIC_COUNTER", {
@@ -202,17 +206,13 @@ export default new Vuex.Store({
         commit("UPDATE_PROFIT", { market, profit });
       }
     },
-    increaseTradedTicks({ state, commit }) {
-      const { tradeHappened } = state;
-      if (!tradeHappened) {
-        commit("TRADING_TICK_INCREASE");
-        commit("SWITCH_TRADE_EVENT", true);
-      }
+    increaseTradedTicks({ state, commit }, { market }) {
+      commit("TRADING_TICK_INCREASE", market);
     },
     async purchase({ commit, getters, dispatch }, { market }) {
       if (getters.isTransactionAllowed(market, "buy")) {
         commit("INCREASE_TRANSACTION_COUNTER");
-        dispatch("increaseTradedTicks");
+        dispatch("increaseTradedTicks", { market });
         const currentMarket = getters.getMarket(market);
         commit("BUY_SHARE", { market });
         const value = currentMarket.currentPrice;
@@ -227,7 +227,7 @@ export default new Vuex.Store({
     async sell({ commit, getters, dispatch }, { market }) {
       if (getters.isTransactionAllowed(market, "sell")) {
         commit("INCREASE_TRANSACTION_COUNTER");
-        dispatch("increaseTradedTicks");
+        dispatch("increaseTradedTicks", { market });
         commit("SELL_SHARE", { market });
         const currentMarket = getters.getMarket(market);
         const value = null;
@@ -250,10 +250,17 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    fullLoteryProb:
-      ({ baseLotteryProb, tradingTicksCounter }) =>
+    nTransactions:
+      ({ ticks }) =>
       () => {
-        return _.round(baseLotteryProb * tradingTicksCounter * 100, 1);
+        const tradingTicksCounterA = _.sum(_.map(ticks, (i) => i.tradeA));
+        const tradingTicksCounterB = _.sum(_.map(ticks, (i) => i.tradeB));
+        return tradingTicksCounterA + tradingTicksCounterB;
+      },
+    fullLoteryProb:
+      ({ baseLotteryProb }, { nTransactions }) =>
+      () => {
+        return _.round(baseLotteryProb * nTransactions() * 100, 1);
       },
     showPredictionDlg:
       ({ showPredictionAt, counter }) =>

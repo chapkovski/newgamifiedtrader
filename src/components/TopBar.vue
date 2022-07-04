@@ -5,8 +5,8 @@
     <pill label="Cash" :value="`\$${$store.state.cash}`"></pill>
     <pill label="Round" :value="getRoundInfo()"></pill>
     <pill label="Price updates left" :value="getPriceUpdatesLeft()"></pill>
+    <pill label="N. transactions" :value="nTransactions()()"></pill>
 
-   
     <v-spacer v-if="gamified"></v-spacer>
     <div
       class="flex-grow-0 flex-shrink-0 d-flex align-center"
@@ -25,7 +25,6 @@
     </div>
     <template #extension>
       <timer
-        
         what-to-do="allowExitPermission"
         :progress-message="''"
         :show-progress="true"
@@ -67,7 +66,7 @@ export default {
   },
   methods: {
     ...mapMutations({ switchGamification: "SWITCH_GAMIFICATION" }),
-    ...mapGetters(["msg"]),
+    ...mapGetters(["nTransactions"]),
     getRoundInfo() {
       return `${window.round_number} out of ${window.num_rounds}`;
     },
