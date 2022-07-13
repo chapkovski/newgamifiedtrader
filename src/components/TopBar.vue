@@ -4,7 +4,7 @@
     <instructions-dialog></instructions-dialog>
     <pill label="Cash" :value="`\$${$store.state.cash}`"></pill>
     <pill label="Round" :value="getRoundInfo()"></pill>
-    <pill label="Price updates left" :value="getPriceUpdatesLeft()"></pill>
+    <pill label="Price updates left" v-if="false" :value="getPriceUpdatesLeft()"></pill>
     <pill label="N. transactions" :value="nTransactions()()"></pill>
 
     <v-spacer v-if="gamified"></v-spacer>

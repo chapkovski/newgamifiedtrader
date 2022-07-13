@@ -1,6 +1,7 @@
 const awards = [
   {
     name: "bronze",
+
     lock: true,
     locked: require("@/assets/bronze_locked.png"),
     unlocked: require("@/assets/bronze.png"),
@@ -11,6 +12,7 @@ const awards = [
 
   {
     name: "silver",
+
     lock: true,
     locked: require("@/assets/silver_locked.png"),
     unlocked: require("@/assets/silver.png"),
@@ -20,6 +22,7 @@ const awards = [
   },
   {
     name: "gold",
+
     lock: true,
     locked: require("@/assets/gold_locked.png"),
     unlocked: require("@/assets/gold.png"),
@@ -30,6 +33,7 @@ const awards = [
 
   {
     name: "platinum",
+
     lock: true,
     locked: require("@/assets/platinum_locked.png"),
     unlocked: require("@/assets/platinum.png"),
@@ -39,6 +43,7 @@ const awards = [
   },
   {
     name: "diamond",
+
     lock: true,
     locked: require("@/assets/diamond_locked.png"),
     unlocked: require("@/assets/diamond.png"),

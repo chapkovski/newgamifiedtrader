@@ -27,7 +27,13 @@
         <b>TRAINING ROUND</b>
       </div>
     </v-system-bar>
-    <v-system-bar app dark v-else height="50" class="d-flex justify-center">
+    <v-system-bar
+      app
+      dark
+      height="50"
+      class="d-flex justify-center"
+      v-if="false"
+    >
       <div class="text-center text-h5">
         <b v-if="$store.state.gamified"
           >Odds to win E$1,000 sweepstake: {{ fullLoteryProb() }} in 1000</b

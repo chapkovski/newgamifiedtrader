@@ -24,10 +24,9 @@
     "v-snackbars": "^3.2.7",
     "vue": "^2.6.11",
     "vue-awesome-countdown": "^1.1.4",
-    "vue-breathing-colors": "^0.0.7",
     "vue-confetti": "^2.3.0",
     "vue-native-websocket": "^2.0.15",
-    "vue-round-slider": "^1.0.1",
+    "vue-slider-component": "^3.2.17",
     "vue-typical": "1.6.2",
     "vuetify": "^2.4.0",
     "vuex": "^3.4.0"

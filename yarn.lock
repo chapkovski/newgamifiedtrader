@@ -5734,11 +5734,6 @@ javascript-stringify@^2.0.1:
   resolved "https://registry.npmjs.org/javascript-stringify/-/javascript-stringify-2.1.0.tgz"
   integrity sha512-JVAfqNPTvNq3sB/VHQJAFxN/sPgKnsKrCwyRt15zwNCdrMMJDdcEOdubuy+DuJYYdm0ox1J4uzEuYKkN+9yhVg==
 
-"jquery@>= 1.10.2":
-  version "3.6.0"
-  resolved "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
-  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
-
 js-base64@^2.1.8:
   version "2.6.4"
   resolved "https://registry.npmjs.org/js-base64/-/js-base64-2.6.4.tgz"
@@ -8013,13 +8008,6 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
-round-slider@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.npmjs.org/round-slider/-/round-slider-1.6.1.tgz"
-  integrity sha512-yRVcksg/wUP6TUWoNrnGRkbvfWuir73+ZgVhYBQaMHXwq2Z2c2MyVZav6p0voIqMZNPbELuYF0UFkg+5d5dNgg==
-  dependencies:
-    jquery ">= 1.10.2"
-
 run-async@^2.4.0:
   version "2.4.1"
   resolved "https://registry.npmjs.org/run-async/-/run-async-2.4.1.tgz"
@@ -9261,10 +9249,10 @@ vue-awesome-countdown@^1.1.4:
   resolved "https://registry.yarnpkg.com/vue-awesome-countdown/-/vue-awesome-countdown-1.1.4.tgz#2a9206f402cbf9720ea6a16250a6a5707e7e27a7"
   integrity sha512-joc59fMzEoOMqJZnmqRDD8ROcT+LfanqL7lJ+sZAsrdQ+xgiwnWsHI/Xi4tYdG7oTWethFzb0tGvzYPlaEksew==
 
-vue-breathing-colors@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.npmjs.org/vue-breathing-colors/-/vue-breathing-colors-0.0.7.tgz"
-  integrity sha1-CGLZrBGMQoXtkVk0YUNJ9K27TQ0=
+vue-class-component@^7.1.0:
+  version "7.2.6"
+  resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.2.6.tgz#8471e037b8e4762f5a464686e19e5afc708502e4"
+  integrity sha512-+eaQXVrAm/LldalI272PpDe3+i4mPis0ORiMYxF6Ae4hyuCh15W8Idet7wPUEs4N4YptgFHGys4UrgNQOMyO6w==
 
 vue-cli-plugin-vuetify@~2.4.2:
   version "2.4.2"
@@ -9330,12 +9318,20 @@ vue-native-websocket@^2.0.15:
   resolved "https://registry.npmjs.org/vue-native-websocket/-/vue-native-websocket-2.0.15.tgz"
   integrity sha512-i3UvRL99rY8ytV0VJzcWDwY3fRPoeh2fGYvB9862JocEQOx/oCw/VtPIUwP4tSzmzJvJZNkvP71wfhfS1sVhxQ==
 
-vue-round-slider@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/vue-round-slider/-/vue-round-slider-1.0.1.tgz"
-  integrity sha512-ll82R1gmdsqfq++eSVufaoNzdyvnLOg8W9H341k1NVKwjAoGhc5wZN1gR5HTRLrDEya0lyOrM/L3dbtSBrDvsQ==
+vue-property-decorator@^8.0.0:
+  version "8.5.1"
+  resolved "https://registry.yarnpkg.com/vue-property-decorator/-/vue-property-decorator-8.5.1.tgz#571a91cf8d2b507f537d79bf8275af3184572fff"
+  integrity sha512-O6OUN2OMsYTGPvgFtXeBU3jPnX5ffQ9V4I1WfxFQ6dqz6cOUbR3Usou7kgFpfiXDvV7dJQSFcJ5yUPgOtPPm1Q==
   dependencies:
-    round-slider "^1.6.1"
+    vue-class-component "^7.1.0"
+
+vue-slider-component@^3.2.17:
+  version "3.2.17"
+  resolved "https://registry.yarnpkg.com/vue-slider-component/-/vue-slider-component-3.2.17.tgz#07e83c8b4a5a0d425b52f38443a508e586168f5f"
+  integrity sha512-vQ/B4PpL1kMsVanIn8l5fuzlMWSew2a1RJ6R9nk8RA5gBJJhFrTXgC0FauAmquofcQsPxj3d9b02xXYifzV3wA==
+  dependencies:
+    core-js "^3.6.5"
+    vue-property-decorator "^8.0.0"
 
 vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   version "4.1.3"

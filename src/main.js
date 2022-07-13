@@ -5,9 +5,9 @@ import Highcharts from "highcharts";
 import Stock from "highcharts/modules/stock";
 import HighchartsVue from "highcharts-vue";
 import VueNativeSock from "vue-native-websocket";
-import BreathingColors from "vue-breathing-colors";
+
 import "animate.css";
-Vue.use(BreathingColors);
+
 import VueParticlesBg from "particles-bg-vue";
 Vue.prototype.$gamified = window.gamified;
 Vue.use(VueParticlesBg);
@@ -16,8 +16,7 @@ Vue.use(vueAwesomeCountdown, "vac");
 import VueConfetti from "vue-confetti";
 Vue.use(VueConfetti);
 
-
-
+import "vue-slider-component/theme/default.css";
 import "vuetify/dist/vuetify.min.css";
 
 import store from "./store";

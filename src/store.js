@@ -282,7 +282,7 @@ export default new Vuex.Store({
       const isTradingAllowed = getters.tradingAllowed();
       if (!isTradingAllowed) return false;
       if (operation === "buy") {
-        return market.shares === 0 && market.currentPrice <= state.cash;
+        return market.shares === 0;
       }
 
       if (operation === "sell") {
