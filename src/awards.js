@@ -6,7 +6,7 @@ const awards = [
     unlocked: require("@/assets/bronze.png"),
     header: "Congratulations! You've earned a bronze badge!",
     message: "Level up! Doing well 👍",
-    gif: require("@/assets/bronze.gif"),
+    gif: window.bronzeGifPath,
   },
 
   {
@@ -16,7 +16,7 @@ const awards = [
     unlocked: require("@/assets/silver.png"),
     header: "Congratulations! You've earned a silver badge!",
     message: "You belong on the trading floor! 📈",
-    gif: require("@/assets/silver.gif"),
+    gif: window.silverGifPath,
   },
   {
     name: "gold",
@@ -25,7 +25,7 @@ const awards = [
     unlocked: require("@/assets/gold.png"),
     header: "Congratulations! You've earned a gold badge!",
     message: "You are the money maker! 💰",
-    gif: require("@/assets/gold.gif"),
+    gif: window.goldGifPath,
   },
 
   {
@@ -35,7 +35,7 @@ const awards = [
     unlocked: require("@/assets/platinum.png"),
     header: "Congratulations! You've earned a platinum badge!",
     message: "You are definitely going places! 👐",
-    gif: require("@/assets/platinum.gif"),
+    gif: window.platinumGifPath,
   },
   {
     name: "diamond",
@@ -44,7 +44,7 @@ const awards = [
     unlocked: require("@/assets/diamond.png"),
     header: "Congratulations! You've earned a diamond badge!",
     message: "The Wolf of Wall Street  ☝️",
-    gif: require("@/assets/diamond.gif"),
+    gif: window.diamondGifPath,
   },
 ];
 export default awards;

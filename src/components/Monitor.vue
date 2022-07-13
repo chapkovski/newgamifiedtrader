@@ -14,7 +14,7 @@ export default {
   watch: {
     "$store.state.marketA.priceDynamicCounter"(v) {
       const absDynamic = Math.abs(v);
-      console.debug("JOJOJOJOJOJ", absDynamic);
+
       if (absDynamic > 1) this.addSnackMessage("A", v, absDynamic);
     },
     "$store.state.marketB.priceDynamicCounter"(v) {
@@ -27,6 +27,12 @@ export default {
         const v = this.nTransactions();
         if (this.awardTrades.includes(v)) {
           if (this.$store.state.gamified) {
+            console.debug(
+              "SHIT HAPPENS",
+              v,
+              this.awardTrades,
+              this.awardTrades.includes(v)
+            );
             this.$confetti.start({ defaultType: "heart" });
             this.pause();
             this.giveAward();

@@ -23,8 +23,8 @@ export default new Vuex.Store({
     awardGiven: {},
     training: window.training || false,
     // training: false,
-    gamified: window.gamified || false,
-    // gamified: false,
+    // gamified: window.gamified || false,
+    gamified: true,
     transactionCounter: 0,
     awardTrades: window.awardsAt || [10, 20, 30, 40, 50],
     awards,
@@ -154,8 +154,9 @@ export default new Vuex.Store({
     getServerConfirmation(context, i) {
       console.debug(i);
     },
-    giveAward({ commit, state }) {
-      const ind = state.awardTrades.indexOf(state.transactionCounter);
+    giveAward({ commit, state, getters }) {
+      const nTransactions = getters.nTransactions();
+      const ind = state.awardTrades.indexOf(nTransactions);
       if (ind >= 0) {
         const award = state.awards[ind];
         commit("UNLOCK_AWARD", ind);
