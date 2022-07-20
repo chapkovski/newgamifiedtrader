@@ -3,7 +3,7 @@
     <trade-allowed-dialog
       v-if="$store.getters.tradingAllowed() && !$store.state.training"
     ></trade-allowed-dialog>
-    <prediction-dlg v-if="$store.getters.showPredictionDlg()"></prediction-dlg>
+    
     <div class="" v-if="$store.state.gamified">
       <transition
         enter-active-class="animate__animated animate__bounce animate__slow"
@@ -43,13 +43,13 @@
     <top-bar></top-bar>
 
     <v-main app v-show="true">
+      
       <v-row style="height: calc(100%)">
-        <market name="A"></market>
-        <market name="B"></market>
+        <market v-for="market in markets" :name="market" :key="market"></market>
       </v-row>
     </v-main>
-
-    <i-bottom-bar v-if="!$store.state.gamified"></i-bottom-bar>
+    <prediction-dlg></prediction-dlg>
+    <i-bottom-bar v-if="$store.state.gamified"></i-bottom-bar>
   </v-app>
 </template>
 
@@ -81,6 +81,7 @@ export default {
   data: function () {
     return {
       timeInTrade: 0,
+      markets: _.shuffle(["A", "B"]),
       sample: {
         colors: ["red", "green", "blue"],
         interval: 3000,

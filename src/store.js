@@ -68,7 +68,6 @@ export default new Vuex.Store({
       state.snackMessages.push(message);
     },
     REMOVE_SNACK_MESSAGE(state) {
-      console.debug("REOMVOE SNAKC RIEACH");
       state.snackMessages.splice(0, 1);
     },
     UNLOCK_AWARD(state, ind) {
@@ -154,13 +153,17 @@ export default new Vuex.Store({
     getServerConfirmation(context, i) {
       console.debug(i);
     },
-    giveAward({ commit, state, getters }) {
+    async giveAward({ commit, dispatch, state, getters }) {
       const nTransactions = getters.nTransactions();
       const ind = state.awardTrades.indexOf(nTransactions);
       if (ind >= 0) {
         const award = state.awards[ind];
         commit("UNLOCK_AWARD", ind);
         commit("PROVIDE_GIVEN_AWARD", award);
+        await dispatch("sendMessage", {
+          name: "assignAward",
+          awardName: award.name,
+        });
       }
     },
     async nextTick({ commit, dispatch, state, getters }) {
@@ -238,10 +241,17 @@ export default new Vuex.Store({
         await dispatch("sendMessage", { name: "sell", market });
       }
     },
-    sendMessage: async function ({ state }, message) {
+    sendMessage: async function ({ state, getters }, message) {
       const { counter, startTime, cash } = state;
+      const marketA = getters.getMarket("A");
+      const marketB = getters.getMarket("B");
+      const { currentPrice: priceA, shares: sharesA } = marketA;
+      const { currentPrice: priceB, shares: sharesB } = marketB;
 
+      const { nTransactions } = getters;
       await Vue.prototype.$socket.sendObj({
+        priceA, priceB,sharesA, sharesB,
+        nTransactions: nTransactions(),
         tick_number: counter,
         balance: cash,
         secs_since_round_starts: differenceInSeconds(new Date(), startTime),
@@ -250,6 +260,15 @@ export default new Vuex.Store({
     },
   },
   getters: {
+    totalWealth:
+      ({ cash, marketA, marketB }) =>
+      () => {
+        return (
+          cash +
+          marketA.currentPrice * marketA.shares +
+          marketB.currentPrice * marketB.shares
+        );
+      },
     nTransactions:
       ({ ticks }) =>
       () => {

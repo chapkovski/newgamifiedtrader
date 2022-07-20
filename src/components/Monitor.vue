@@ -9,30 +9,29 @@ export default {
   },
   computed: {
     ...mapState(["transactionCounter", "awardTrades", "awardGiven"]),
-    ...mapGetters(["nTransactions"]),
+    ...mapGetters(["nTransactions", "showPredictionDlg"]),
   },
   watch: {
+    "$store.getters.showPredictionDlg"(v) {
+      if (v() === true) {
+        this.pause();
+      }
+    },
     "$store.state.marketA.priceDynamicCounter"(v) {
       const absDynamic = Math.abs(v);
-
-      if (absDynamic > 1) this.addSnackMessage("A", v, absDynamic);
+      if (absDynamic === window.snackAlertN)
+        this.addSnackMessage("A", v, absDynamic);
     },
-    "$store.state.marketB.priceDynamicCounter"(v) {
-      const absDynamic = Math.abs(v);
-      if (absDynamic > 1) this.addSnackMessage("B", v, absDynamic);
-    },
+    // "$store.state.marketB.priceDynamicCounter"(v) {
+    //   const absDynamic = Math.abs(v);
+    //   if (absDynamic ===window.snackAlertN) this.addSnackMessage("B", v, absDynamic);
+    // },
     "$store.state.ticks": {
       deep: true,
       handler: function (newVal, oldVal) {
         const v = this.nTransactions();
         if (this.awardTrades.includes(v)) {
           if (this.$store.state.gamified) {
-            console.debug(
-              "SHIT HAPPENS",
-              v,
-              this.awardTrades,
-              this.awardTrades.includes(v)
-            );
             this.$confetti.start({ defaultType: "heart" });
             this.pause();
             this.giveAward();
@@ -66,7 +65,7 @@ export default {
       this.addSnackMessageToStore({
         message: msg,
         color: directionColor,
-        top: true,
+        bottom: true,
         absolute: true,
       });
       const that = this;
