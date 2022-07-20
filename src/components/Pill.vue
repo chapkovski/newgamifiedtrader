@@ -1,11 +1,11 @@
 <template>
-  <v-sheet outlined class="mx-1   ">
+  <v-sheet outlined class="mx-1">
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title>{{ label }}: </v-list-item-title>
+        <h3>{{ label }}:</h3>
       </v-list-item-content>
       <v-list-item-action class="font-weight-bold">
-        {{ value }}
+      <h3>  {{ value }}</h3>
       </v-list-item-action>
     </v-list-item>
   </v-sheet>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  props:['value', 'label'],
+  props: ["value", "label"],
   data() {
     return {};
   },

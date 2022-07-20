@@ -1,18 +1,22 @@
 <template>
   <v-row>
-    <v-col>
+    <v-col cols="6">
       <pill label="Position" :value="market.shares"></pill>
     </v-col>
-    <v-col
-      ><v-btn @click="buy" :color="colorBuy" :disabled="!btnEnabled('buy')"
-        >Buy</v-btn
-      ></v-col
-    >
-    <v-col
-      ><v-btn @click="sell" :color="colorSell" :disabled="!btnEnabled('sell')"
-        >Sell</v-btn
-      ></v-col
-    >
+    <v-col cols="6">
+      <v-sheet
+        outlined
+        class="mx-1 d-flex flex-row justify-space-around align-center"
+        min-height="66"
+      >
+        <v-btn large @click="buy" :color="colorBuy" :disabled="!btnEnabled('buy')"
+          >Buy</v-btn
+        >
+        <v-btn large @click="sell" :color="colorSell" :disabled="!btnEnabled('sell')"
+          >Sell</v-btn
+        >
+      </v-sheet>
+    </v-col>
   </v-row>
 </template>
 

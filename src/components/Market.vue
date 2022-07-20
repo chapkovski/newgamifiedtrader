@@ -29,7 +29,7 @@
       ></buy-sell-bar>
     </div>
     <div id="btns" class="flex-grow-0 flex-shrink-0">
-      <info-bar :market="market"></info-bar>
+      <info-bar :market="market" v-if="salient"></info-bar>
     </div>
   </v-col>
 </template>
@@ -52,6 +52,7 @@ export default {
   data() {
     const rawData = [100, ..._.fill(Array(10), null)];
     return {
+      salient:window.salient,
       chartHeight: 0,
       prices: [],
       xAxis: { min: new Date().getTime() },
