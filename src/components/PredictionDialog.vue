@@ -116,7 +116,7 @@
               Submit
             </v-btn>
             <v-alert type="info" v-else
-              >Please make your predictions</v-alert
+              >Please make your predictions. You need to move the slides before submitting. </v-alert
             >
           </v-sheet>
         </v-col>
