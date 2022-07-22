@@ -36,7 +36,7 @@ export default {
     // return { tickFrequency: 1 * MILLISECONDS };
   },
   computed: {
-    ...mapState(["pause"]),
+    ...mapState(["pause", "counter"]),
   },
   watch: {
     pause(v) {
@@ -51,13 +51,15 @@ export default {
     ...mapActions(["nextTick"]),
     ...mapMutations(["PAUSE"]),
     toDo() {
-      this.nextTick();
-      const that = this;
-      setTimeout(function () {
-        if (!that.pause) {
-          that.$refs.tickTimer.startCountdown(true);
-        }
-      }, 500);
+      if (this.counter < window.initialPricesA.length) {
+        this.nextTick();
+        const that = this;
+        setTimeout(function () {
+          if (!that.pause) {
+            that.$refs.tickTimer.startCountdown(true);
+          }
+        }, 500);
+      }
     },
   },
 };

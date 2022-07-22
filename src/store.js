@@ -168,14 +168,16 @@ export default new Vuex.Store({
     },
     async nextTick({ commit, dispatch, state, getters }) {
       commit("INCREASE_COUNTER");
-
-      const marketA = getters.getMarket("A");
-      const marketB = getters.getMarket("B");
-      const priceA = marketA.initialPrices[state.counter];
-      const priceB = marketB.initialPrices[state.counter];
-      dispatch("setPrice", { market: "A", value: priceA });
-      dispatch("setPrice", { market: "B", value: priceB });
-      commit("UNPAUSE");
+      const { counter } = state;
+      if (counter < window.initialPricesA.length) {
+        const marketA = getters.getMarket("A");
+        const marketB = getters.getMarket("B");
+        const priceA = marketA.initialPrices[counter];
+        const priceB = marketB.initialPrices[counter];
+        dispatch("setPrice", { market: "A", value: priceA });
+        dispatch("setPrice", { market: "B", value: priceB });
+        commit("UNPAUSE");
+      }
     },
     setPrice({ commit, getters }, { market, value }) {
       const currentMarket = getters.getMarket(market);
@@ -250,11 +252,14 @@ export default new Vuex.Store({
 
       const { nTransactions } = getters;
       await Vue.prototype.$socket.sendObj({
-        priceA, priceB,sharesA, sharesB,
+        priceA,
+        priceB,
+        sharesA,
+        sharesB,
         nTransactions: nTransactions(),
         tick_number: counter,
         balance: cash,
-        
+
         secs_since_round_starts: differenceInSeconds(new Date(), startTime),
         ...message,
       });

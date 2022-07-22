@@ -168,13 +168,14 @@ export default {
         this.sendMessage({ name: "GAME_STARTS" });
       }
     },
-    dialog(v) {
-      this.onPause = v;
-    },
+    dialog(v) {},
     async counter(v) {
       if (v >= window.initialPricesA.length) {
+        this.PAUSE();
         await this.sendMessage({ name: "GAME_ENDS" });
-        document.getElementById("form").submit();
+        this.$nextTick(() => {
+          document.getElementById("form").submit();
+        });
       }
     },
   },
@@ -183,7 +184,7 @@ export default {
   },
   methods: {
     ...mapActions(["sendMessage"]),
-    ...mapMutations(["SET_START_TIME"]),
+    ...mapMutations(["SET_START_TIME", "PAUSE"]),
     tweenUpd(v) {
       this.tweenedPrice = _.round(this.tweenedPrice, 2);
     },
