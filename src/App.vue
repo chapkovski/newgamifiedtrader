@@ -173,9 +173,7 @@ export default {
       if (v >= window.initialPricesA.length) {
         this.PAUSE();
         await this.sendMessage({ name: "GAME_ENDS" });
-        this.$nextTick(() => {
-          document.getElementById("form").submit();
-        });
+        document.getElementById("form").submit();
       }
     },
   },
