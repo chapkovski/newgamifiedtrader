@@ -254,6 +254,7 @@ export default new Vuex.Store({
         nTransactions: nTransactions(),
         tick_number: counter,
         balance: cash,
+        
         secs_since_round_starts: differenceInSeconds(new Date(), startTime),
         ...message,
       });

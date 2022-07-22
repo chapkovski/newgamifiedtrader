@@ -1,9 +1,10 @@
 <template>
   <v-app app>
+    <input type="hidden" name="intermediary_payoff" :value="totalWealth()" />
     <trade-allowed-dialog
       v-if="$store.getters.tradingAllowed() && !$store.state.training"
     ></trade-allowed-dialog>
-    
+
     <div class="" v-if="$store.state.gamified">
       <transition
         enter-active-class="animate__animated animate__bounce animate__slow"
@@ -43,7 +44,6 @@
     <top-bar></top-bar>
 
     <v-main app v-show="true">
-      
       <v-row style="height: calc(100%)">
         <market v-for="market in markets" :name="market" :key="market"></market>
       </v-row>
@@ -140,7 +140,12 @@ export default {
   },
   computed: {
     ...mapState(["isAwardGiven", "awardGiven", "counter", "socket"]),
-    ...mapGetters(["showPredictionDlg", "endGame", "fullLoteryProb"]),
+    ...mapGetters([
+      "showPredictionDlg",
+      "endGame",
+      "fullLoteryProb",
+      "totalWealth",
+    ]),
     getMenuStyle() {
       return this.training ? { top: "25px" } : null;
     },
@@ -166,8 +171,9 @@ export default {
     dialog(v) {
       this.onPause = v;
     },
-    counter(v) {
+    async counter(v) {
       if (v >= window.initialPricesA.length) {
+        await this.sendMessage({ name: "GAME_ENDS" });
         document.getElementById("form").submit();
       }
     },
