@@ -81,7 +81,7 @@ export default {
   data: function () {
     return {
       timeInTrade: 0,
-      markets: _.shuffle(["A", "B"]),
+      markets: _.shuffle(["A", ]),
       sample: {
         colors: ["red", "green", "blue"],
         interval: 3000,

@@ -10,7 +10,7 @@ export default new Vuex.Store({
     ticks: _.map(window.initialPricesA, (i) => ({
       tick: i,
       tradeA: 0,
-      tradeB: 0,
+      
     })),
     baseLotteryProb: 0.02,
     tradeHappened: false,
@@ -41,16 +41,7 @@ export default new Vuex.Store({
       profit: 0,
       priceDynamicCounter: 0,
     },
-    marketB: {
-      name: "B",
-      currentPrice: 100,
-      initialPrices: window.initialPricesB,
-      prices: [[new Date().getTime(), 100]],
-      shares: 1,
-      purchasePrice: 100,
-      profit: 0,
-      priceDynamicCounter: 0,
-    },
+     
     socket: {
       isConnected: false,
       message: "",
@@ -170,12 +161,9 @@ export default new Vuex.Store({
       commit("INCREASE_COUNTER");
       const { counter } = state;
       if (counter < window.initialPricesA.length) {
-        const marketA = getters.getMarket("A");
-        const marketB = getters.getMarket("B");
+        const marketA = getters.getMarket("A");        
         const priceA = marketA.initialPrices[counter];
-        const priceB = marketB.initialPrices[counter];
         dispatch("setPrice", { market: "A", value: priceA });
-        dispatch("setPrice", { market: "B", value: priceB });
         commit("UNPAUSE");
       }
     },
@@ -246,16 +234,14 @@ export default new Vuex.Store({
     sendMessage: async function ({ state, getters }, message) {
       const { counter, startTime, cash } = state;
       const marketA = getters.getMarket("A");
-      const marketB = getters.getMarket("B");
+      
       const { currentPrice: priceA, shares: sharesA } = marketA;
-      const { currentPrice: priceB, shares: sharesB } = marketB;
+      
 
       const { nTransactions } = getters;
       await Vue.prototype.$socket.sendObj({
         priceA,
-        priceB,
         sharesA,
-        sharesB,
         nTransactions: nTransactions(),
         tick_number: counter,
         balance: cash,
@@ -271,16 +257,14 @@ export default new Vuex.Store({
       () => {
         return (
           cash +
-          marketA.currentPrice * marketA.shares +
-          marketB.currentPrice * marketB.shares
+          marketA.currentPrice * marketA.shares  
         );
       },
     nTransactions:
       ({ ticks }) =>
       () => {
         const tradingTicksCounterA = _.sum(_.map(ticks, (i) => i.tradeA));
-        const tradingTicksCounterB = _.sum(_.map(ticks, (i) => i.tradeB));
-        return tradingTicksCounterA + tradingTicksCounterB;
+        return tradingTicksCounterA 
       },
     fullLoteryProb:
       ({ baseLotteryProb }, { nTransactions }) =>
