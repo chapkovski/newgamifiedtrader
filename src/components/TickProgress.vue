@@ -1,6 +1,6 @@
 <template>
   <countdown
-    :autoStart="true"
+    :autoStart="false"
     ref="tickTimer"
     :leftTime="tickFrequency"
     :style="{ width: '100%' }"

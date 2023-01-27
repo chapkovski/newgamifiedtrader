@@ -1,127 +1,47 @@
 <template>
   <div v-if="true">
-    <v-overlay
-      z-index="5"
-      :value="true"
-      v-if="$store.getters.showPredictionDlg()"
-    >
+    <v-overlay z-index="5" :value="true" v-if="$store.getters.showPredictionDlg()">
     </v-overlay>
-    <v-bottom-navigation
-      app
-      height="300"
-      z-index="6"
-      style="z-index: 6"
-      v-if="$store.getters.showPredictionDlg()"
-    >
-      <v-row>
-        <v-col cols="5">
-          <v-sheet
-            outlined
-            class="p-3 m-3 d-flex flex-column justify-space-around"
-            rounded
-            elevation="3"
-            full-height
-            height="280"
-          >
-            <div>
-              <h6 class="">How likely is Stock <b>A</b> to go up next?</h6>
-              <div style="margin-left: 50px; margin-right: 50px">
-                <vue-slider
-                  :min="1"
-                  :max="5"
-                  :marks="marks1"
-                  :tooltip="'always'"
-                  :tooltip-placement="'bottom'"
-                  v-model="stockUpA"
-                  @change="setClicker(0)"
-                  :tooltip-formatter="formatter1"
-                >
-                </vue-slider>
+    <transition appear enter-active-class="animate__animated animate__slideInUp animate__slow"
+      leave-active-class="animate__animated animate__slideOutDown animate__slow">
+
+      <v-bottom-navigation app height="300" z-index="6" style="z-index: 6" v-if="$store.getters.showPredictionDlg()">
+        <v-row>
+          <v-col cols="10">
+            <v-sheet outlined class="p-3 m-3 d-flex flex-column justify-space-around" rounded elevation="3" full-height
+              height="280">
+              <div>
+                <h6 class="">How likely is a stock price to go up next?</h6>
+                <div style="margin-left: 50px; margin-right: 50px">
+                  <vue-slider :min="1" :max="5" :marks="marks1" :tooltip="'always'" :tooltip-placement="'bottom'"
+                    v-model="stockUpA" @change="setClicker(0)" :tooltip-formatter="formatter1">
+                  </vue-slider>
+                </div>
               </div>
-            </div>
-            <div>
-              <h6 class="">How confident are you in the assessment?</h6>
-              <div style="margin-left: 50px; margin-right: 50px">
-                <vue-slider
-                  :min="1"
-                  :max="5"
-                  :marks="marks2"
-                  :tooltip="'always'"
-                  :tooltip-placement="'bottom'"
-                  v-model="confidenceA"
-                  @change="setClicker(1)"
-                  :tooltip-formatter="formatter2"
-                >
-                </vue-slider>
+              <div>
+                <h6 class="">How confident are you in the assessment?</h6>
+                <div style="margin-left: 50px; margin-right: 50px">
+                  <vue-slider :min="1" :max="5" :marks="marks2" :tooltip="'always'" :tooltip-placement="'bottom'"
+                    v-model="confidenceA" @change="setClicker(1)" :tooltip-formatter="formatter2">
+                  </vue-slider>
+                </div>
               </div>
-            </div>
-          </v-sheet>
-        </v-col>
-        <v-col cols="5">
-          <v-sheet
-            outlined
-            class="p-3 m-3 d-flex flex-column justify-space-around"
-            rounded
-            height="280"
-            elevation="3"
-          >
-            <div>
-              <h6>How likely is Stock <b>B</b> to go up next?</h6>
-              <div style="margin-left: 50px; margin-right: 50px">
-                <vue-slider
-                  :min="1"
-                  :max="5"
-                  :marks="marks1"
-                  :tooltip="'always'"
-                  :tooltip-placement="'bottom'"
-                  v-model="stockUpB"
-                  @change="setClicker(2)"
-                  :tooltip-formatter="formatter1"
-                >
-                </vue-slider>
-              </div>
-            </div>
-            <div>
-              <h6 class="">How confident are you in the assessment?</h6>
-              <div style="margin-left: 50px; margin-right: 50px">
-                <vue-slider
-                  :min="1"
-                  :max="5"
-                  :marks="marks2"
-                  :tooltip="'always'"
-                  :tooltip-placement="'bottom'"
-                  v-model="confidenceB"
-                  @change="setClicker(3)"
-                  :tooltip-formatter="formatter2"
-                >
-                </vue-slider>
-              </div>
-            </div>
-          </v-sheet>
-        </v-col>
-        <v-col cols="2">
-          <v-sheet
-            outlined
-            class="p-3 m-3 d-flex flex-column justify-center align-center"
-            rounded
-            height="280"
-            elevation="3"
-          >
-            <v-btn
-              color="primary"
-              id="submitbtn"
-              @click="closeDialog"
-              v-if="allClicked"
-            >
-              Submit
-            </v-btn>
-            <v-alert type="info" v-else
-              >Please make your predictions. You need to move the slides before submitting. </v-alert
-            >
-          </v-sheet>
-        </v-col>
-      </v-row>
-    </v-bottom-navigation>
+            </v-sheet>
+          </v-col>
+
+          <v-col cols="2">
+            <v-sheet outlined class="p-3 m-3 d-flex flex-column justify-center align-center" rounded height="280"
+              elevation="3">
+              <v-btn large color="primary" id="submitbtn" @click="closeDialog" v-if="allClicked">
+                Submit
+              </v-btn>
+              <v-alert type="info" v-else>Please make your predictions. You need to move the slides before submitting.
+              </v-alert>
+            </v-sheet>
+          </v-col>
+        </v-row>
+      </v-bottom-navigation>
+    </transition>
   </div>
 </template>
 
@@ -157,12 +77,11 @@ export default {
         4: "Somewhat confident (4)",
         5: "Very confident (5)",
       },
-      clickers: [0, 0, 0, 0],
+      clickers: [0, 0],
       dialog: true,
       stockUpA: 3,
       confidenceA: 1,
-      stockUpB: 3,
-      confidenceB: 1,
+
     };
   },
   mounted() {
@@ -186,17 +105,16 @@ export default {
     ...mapActions(["nextTick", "sendMessage"]),
     ...mapMutations(["PAUSE"]),
     async closeDialog() {
-      const { stockUpA, stockUpB, confidenceA, confidenceB } = this;
+      const { stockUpA, confidenceA } = this;
       await this.sendMessage({
         name: "PREDICTIONS_SENT",
         action: "predictions_send",
         stockUpA,
-        stockUpB,
         confidenceA,
-        confidenceB,
+
       });
-      this.nextTick();
       this.dialog = false;
+      this.nextTick();
     },
   },
 };
@@ -278,7 +196,7 @@ export default {
   margin-right: 4px !important;
   margin-left: 4px !important;
   font-size: 1rem;
-  height: 28px;
+  height: 50px;
   min-width: 50px;
   padding: 0 12.4444444444px;
 }

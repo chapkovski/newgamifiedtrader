@@ -1,7 +1,7 @@
 <template>
   <v-col cols="12" fill-height class="d-flex flex-column">
     <div id="btns" class="flex-grow-0 flex-shrink-0 text-h4">
-      <div class="my-3 font-weight-bold text-center">Stock {{ name }}</div>
+      <div class="my-3 font-weight-bold text-center" v-if="false">Stock {{ name }}</div>
       <pill label="Current price" :value="market.currentPrice"></pill>
     </div>
     <div

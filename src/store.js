@@ -30,7 +30,7 @@ export default new Vuex.Store({
     awards,
     counter: window.counter || 0,
     cash: 50,
-    pause: false,
+    pause: true,
     marketA: {
       name: "A",
       currentPrice: 100,
@@ -274,6 +274,7 @@ export default new Vuex.Store({
     showPredictionDlg:
       ({ showPredictionAt, counter }) =>
       () => {
+        return counter === 0 || counter ===3;
         return counter === showPredictionAt;
       },
     tradingAllowed:
