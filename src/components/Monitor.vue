@@ -69,7 +69,7 @@ export default {
         absolute: true,
       });
       const that = this;
-      setTimeout(() => that.removeSnackMessage(), 3000);
+      setTimeout(() => that.removeSnackMessage(), 5000);
     },
   },
 };

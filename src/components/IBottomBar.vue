@@ -2,9 +2,11 @@
   <div class="text-center d-flex justify-center align-center">
     <v-snackbars :objects="objects">
       <template v-slot:default="{ message }">
-    <h3 class="mb-2">{{ message }}</h3>
-    
-  </template>
+        <transition appear enter-active-class="animate__animated animate__bounce "
+          leave-active-class="animate__animated animate__slideOutDown animate__slow">
+              <h3 class="mb-2">{{ message }}</h3>
+        </transition>
+      </template>
     </v-snackbars>
   </div>
 </template>
@@ -30,7 +32,7 @@ export default {
     },
     ...mapState({ objects: "snackMessages" }),
   },
-  mounted() {},
+  mounted() { },
   methods: {
     ...mapMutations({ removeSnackMessage: "REMOVE_SNACK_MESSAGE" }),
   },

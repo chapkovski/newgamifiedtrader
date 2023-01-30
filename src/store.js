@@ -274,8 +274,8 @@ export default new Vuex.Store({
     showPredictionDlg:
       ({ showPredictionAt, counter }) =>
       () => {
-        return counter === 0 || counter ===3;
-        return counter === showPredictionAt;
+        return counter === 0 || counter ===showPredictionAt;
+        
       },
     tradingAllowed:
       ({ tradingAt, counter }) =>
