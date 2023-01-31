@@ -21,6 +21,7 @@ export default new Vuex.Store({
     // tradingAt: 0,
     isAwardGiven: false,
     awardGiven: {},
+    notifications: window.notifications || false,
     training: window.training || false,
     // training: false,
     gamified: window.gamified || false,
@@ -272,8 +273,9 @@ export default new Vuex.Store({
         return _.round(baseLotteryProb * nTransactions() * 100, 1);
       },
     showPredictionDlg:
-      ({ showPredictionAt, counter }) =>
+      ({ showPredictionAt, counter, training }) =>
       () => {
+        if (training) return false
         return counter === 0 || counter ===showPredictionAt;
         
       },

@@ -1,6 +1,6 @@
 <template>
   <countdown
-    :autoStart="false"
+    :autoStart="$store.state.training"
     ref="tickTimer"
     :leftTime="tickFrequency"
     :style="{ width: '100%' }"

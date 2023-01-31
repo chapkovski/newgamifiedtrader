@@ -49,7 +49,7 @@
       </v-row>
     </v-main>
     <prediction-dlg></prediction-dlg>
-    <i-bottom-bar v-if="$store.state.gamified"></i-bottom-bar>
+    <i-bottom-bar v-if="$store.state.notifications"></i-bottom-bar>
   </v-app>
 </template>
 

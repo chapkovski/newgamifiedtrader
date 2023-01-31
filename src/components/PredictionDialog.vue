@@ -113,6 +113,9 @@ export default {
         confidenceA,
 
       });
+      this.clickers = [0, 0],
+      this.stockUpA =3,
+      this.confidenceA = 1,
       this.dialog = false;
       this.nextTick();
     },
