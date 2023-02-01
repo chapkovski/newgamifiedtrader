@@ -30,13 +30,13 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters(["isTransactionAllowed"]),
-    ...mapState(["gamified"]),
+    ...mapGetters(["isTransactionAllowed", 'hedonic']),
+    
     colorSell() {
-      return this.gamified ? "red" : "";
+      return this.$isHedonic ? "red" : "";
     },
     colorBuy() {
-      return this.gamified ? "green" : "";
+      return this.$isHedonic ? "green" : "";
     },
   },
   methods: {

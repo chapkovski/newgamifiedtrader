@@ -5,7 +5,7 @@
       v-if="$store.getters.tradingAllowed() && !$store.state.training"
     ></trade-allowed-dialog>
 
-    <div class="" v-if="$store.state.gamified">
+    <div class="" v-if="$isHedonic">
       <transition
         enter-active-class="animate__animated animate__bounce animate__slow"
         leave-active-class="animate__animated animate__fadeOutTopRight animate__slow"
@@ -36,7 +36,7 @@
       v-if="false"
     >
       <div class="text-center text-h5">
-        <b v-if="$store.state.gamified"
+        <b v-if="$isHedonic"
           >Odds to win E$1,000 sweepstake: {{ fullLoteryProb() }} in 1000</b
         >
       </div>
@@ -49,7 +49,7 @@
       </v-row>
     </v-main>
     <prediction-dlg></prediction-dlg>
-    <i-bottom-bar v-if="$store.state.notifications"></i-bottom-bar>
+    <i-bottom-bar v-if="$areNotifications"></i-bottom-bar>
   </v-app>
 </template>
 
@@ -79,6 +79,7 @@ export default {
     IBottomBar,
   },
   data: function () {
+
     return {
       timeInTrade: 0,
       markets: _.shuffle(["A", ]),
@@ -141,6 +142,7 @@ export default {
   computed: {
     ...mapState(["isAwardGiven", "awardGiven", "counter", "socket"]),
     ...mapGetters([
+      
       "showPredictionDlg",
       "endGame",
       "fullLoteryProb",

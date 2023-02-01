@@ -1,7 +1,7 @@
 <template>
   <v-col cols="12" fill-height class="d-flex flex-column">
     <div id="btns" class="flex-grow-0 flex-shrink-0 text-h4">
-      <div class="my-3 font-weight-bold text-center" v-if="false">Stock {{ name }}</div>
+      <div class="my-3 font-weight-bold text-center">&nbsp;</div>
       <pill label="Current price" :value="market.currentPrice"></pill>
     </div>
     <div
@@ -29,7 +29,7 @@
       ></buy-sell-bar>
     </div>
     <div id="btns" class="flex-grow-0 flex-shrink-0">
-      <info-bar :market="market" v-if="true"></info-bar>
+      <info-bar :market="market" v-if="salient"></info-bar>
     </div>
   </v-col>
 </template>
@@ -52,7 +52,7 @@ export default {
   data() {
     const rawData = [100, ..._.fill(Array(10), null)];
     return {
-      
+      salient:window.salient,
       chartHeight: 0,
       prices: [],
       xAxis: { min: new Date().getTime() },

@@ -10,6 +10,8 @@ import "animate.css";
 
 import VueParticlesBg from "particles-bg-vue";
 Vue.prototype.$gamified = window.gamified;
+Vue.prototype.$isHedonic = window.gamified && window.hedonic;
+Vue.prototype.$areNotifications = window.gamified && window.notifications;
 Vue.use(VueParticlesBg);
 import vueAwesomeCountdown from "vue-awesome-countdown";
 Vue.use(vueAwesomeCountdown, "vac");

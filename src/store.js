@@ -22,6 +22,8 @@ export default new Vuex.Store({
     isAwardGiven: false,
     awardGiven: {},
     notifications: window.notifications || false,
+    hedonic: window.hedonic || false,
+    
     training: window.training || false,
     // training: false,
     gamified: window.gamified || false,
@@ -289,6 +291,11 @@ export default new Vuex.Store({
       () => {
         return counter >= 10;
       },
+   
+    
+    
+    
+      
     isTransactionAllowed: (state, getters) => (marketName, operation) => {
       const market = getters.getMarket(marketName);
       const isTradingAllowed = getters.tradingAllowed();

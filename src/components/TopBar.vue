@@ -7,21 +7,14 @@
     <pill label="Price updates left" v-if="false" :value="getPriceUpdatesLeft()"></pill>
     <pill label="N. transactions" :value="nTransactions()()"></pill>
 
-    <v-spacer v-if="gamified"></v-spacer>
+    <v-spacer v-if="$isHedonic"></v-spacer>
     <div
       class="flex-grow-0 flex-shrink-0 d-flex align-center"
       style="height: 100%"
     >
-      <award-block v-if="gamified"></award-block>
+      <award-block v-if="$isHedonic"></award-block>
 
-      <v-switch
-        v-if="false"
-        class="mx-3"
-        label="Gamified"
-        v-model="gamified"
-        dense
-        hide-details
-      ></v-switch>
+ 
     </div>
     <template #extension>
       <timer
@@ -54,20 +47,14 @@ export default {
     return {};
   },
   computed: {
-    ...mapState({ internalGamified: "gamified", counter: "counter" }),
-    gamified: {
-      get() {
-        return this.internalGamified;
-      },
-      set(newValue) {
-        this.switchGamification();
-      },
-    },
+    ...mapState({  counter: "counter" }),
+   
   },
   methods: {
-    ...mapMutations({ switchGamification: "SWITCH_GAMIFICATION" }),
-    ...mapGetters(["nTransactions",'totalWealth']),
+   
+    ...mapGetters(["nTransactions",'totalWealth', 'hedonic']),
     getRoundInfo() {
+      
       return `${window.round_number} out of ${window.num_rounds}`;
     },
     getPriceUpdatesLeft() {

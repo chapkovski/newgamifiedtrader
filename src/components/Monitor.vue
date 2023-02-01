@@ -9,7 +9,7 @@ export default {
   },
   computed: {
     ...mapState(["transactionCounter", "awardTrades", "awardGiven"]),
-    ...mapGetters(["nTransactions", "showPredictionDlg"]),
+    ...mapGetters(["nTransactions", "showPredictionDlg", 'hedonic']),
   },
   watch: {
     "$store.getters.showPredictionDlg"(v) {
@@ -31,7 +31,7 @@ export default {
       handler: function (newVal, oldVal) {
         const v = this.nTransactions();
         if (this.awardTrades.includes(v)) {
-          if (this.$store.state.gamified) {
+          if (this.$isHedonic) {
             this.$confetti.start({ defaultType: "heart" });
             this.pause();
             this.giveAward();

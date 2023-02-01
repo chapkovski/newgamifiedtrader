@@ -5,7 +5,7 @@
                 <v-card-title class="text-h5 red"> Information </v-card-title>
     
                 <v-card-text class="my-3 text-center text-h5">
-                    Trade is now allowed! <span v-if="$store.state.gamified">Complete your trades to earn your badges!</span>
+                    Trade is now allowed! <span v-if="$isHedonic">Complete your trades to earn your badges!</span>
                 </v-card-text>
     
                 <v-divider></v-divider>
