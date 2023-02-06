@@ -22,10 +22,7 @@ export default {
       if (absDynamic === window.snackAlertN)
         this.addSnackMessage("A", v, absDynamic);
     },
-    // "$store.state.marketB.priceDynamicCounter"(v) {
-    //   const absDynamic = Math.abs(v);
-    //   if (absDynamic ===window.snackAlertN) this.addSnackMessage("B", v, absDynamic);
-    // },
+
     "$store.state.ticks": {
       deep: true,
       handler: function (newVal, oldVal) {

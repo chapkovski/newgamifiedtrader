@@ -1,5 +1,6 @@
 <template>
   <v-app app>
+    <i-bottom-bar v-if="$areNotifications"></i-bottom-bar>
     <input type="hidden" name="intermediary_payoff" :value="totalWealth()" />
     <trade-allowed-dialog
       v-if="$store.getters.tradingAllowed() && !$store.state.training"
@@ -44,12 +45,13 @@
     <top-bar></top-bar>
 
     <v-main app v-show="true">
+      
       <v-row style="height: calc(100%)">
         <market v-for="market in markets" :name="market" :key="market"></market>
       </v-row>
     </v-main>
     <prediction-dlg></prediction-dlg>
-    <i-bottom-bar v-if="$areNotifications"></i-bottom-bar>
+    
   </v-app>
 </template>
 

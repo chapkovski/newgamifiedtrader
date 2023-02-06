@@ -1,6 +1,6 @@
 <template>
-  <div class="text-center d-flex justify-center align-center">
-    <v-snackbars :objects="objects">
+  <div class="text-center d-flex justify-center align-center" >
+    <v-snackbars :objects="objects" top center>
       <template v-slot:default="{ message }">
         <transition appear enter-active-class="animate__animated animate__bounce "
           leave-active-class="animate__animated animate__slideOutDown animate__slow">
