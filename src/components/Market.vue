@@ -4,10 +4,14 @@
 
       <v-row class="mt-1 mx-1">
         <v-col cols="6">
-          <pill label="Total wealth" :value="`\$${totalWealth()}`"></pill>
+          <pill label="Total wealth"  prefix="$" >
+            <animated-counter :value="totalWealth()"></animated-counter>
+          </pill>
         </v-col>
         <v-col>
-          <pill label="Current price" :value="market.currentPrice"></pill>
+          <pill label="Current price" >
+            <animated-counter :value="market.currentPrice"></animated-counter>
+          </pill>
         </v-col>
 
 
@@ -32,6 +36,7 @@
 </template>
 
 <script>
+import AnimatedCounter from './AnimatedCounter.vue';
 
 import InfoBar from "./InfoBar";
 import Pill from "./Pill";
@@ -41,7 +46,7 @@ import { mapMutations, mapActions, mapGetters, mapState } from "vuex";
 export default {
   components: {
     highcharts: Chart,
-
+    AnimatedCounter,
     InfoBar,
     Pill,
   },
@@ -49,6 +54,7 @@ export default {
   data() {
     const rawData = [100, ..._.fill(Array(10), null)];
     return {
+     
       salient: window.salient,
       chartHeight: 0,
       prices: [],
@@ -109,21 +115,27 @@ export default {
     };
   },
   watch: {
-    "market.currentPrice"(v) {
-      let updObj = v;
-      const data = this.$refs.priceGraph.chart.series[0];
-      if (this.counter < this.rawData.length) {
-        const { x, y } = data.data[this.counter];
-        this.$refs.priceGraph.chart.series[0].removePoint(this.counter, false);
-        updObj = { x, y: v };
+    "market.currentPrice": {
+      immediate:false,
+      handler(v) {
+        {
+
+          let updObj = v;
+          const data = this.$refs.priceGraph.chart.series[0];
+          if (this.counter < this.rawData.length) {
+            const { x, y } = data.data[this.counter];
+            this.$refs.priceGraph.chart.series[0].removePoint(this.counter, false);
+            updObj = { x, y: v };
+          }
+          this.$refs.priceGraph.chart.series[0].addPoint(
+            updObj,
+            false,
+            false,
+            true
+          );
+          this.$refs.priceGraph.chart.redraw();
+        }
       }
-      this.$refs.priceGraph.chart.series[0].addPoint(
-        updObj,
-        false,
-        false,
-        true
-      );
-      this.$refs.priceGraph.chart.redraw();
     },
   },
   computed: {
@@ -134,6 +146,7 @@ export default {
     },
   },
   async mounted() {
+    this.tweenedPrice = this.market.currentPrice
     this.onResize();
   },
 

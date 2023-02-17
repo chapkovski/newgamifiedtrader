@@ -1,5 +1,5 @@
 <template>
-  <v-sheet outlined class="m-1 rounded-lg" >
+  <v-sheet outlined class=" rounded-lg" >
     <v-list-item>
       <v-list-item-content>
          

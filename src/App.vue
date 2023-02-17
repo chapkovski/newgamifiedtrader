@@ -54,7 +54,9 @@
     <div height="100" :border="false" class="mb-3">
       <v-row class="mx-1">
         <v-col cols="6" class="d-flex" >
-        <pill label="Position" :value="market.shares" style="width:100%"></pill>
+        <pill label="Position" style="width:100%">
+          <animated-counter :value="market.shares" :tweenDuration="1000"></animated-counter>
+        </pill>
       </v-col>
       <v-col cols="6">
         
@@ -68,7 +70,7 @@
 
 <script>
 /* eslint-disable */
-
+import AnimatedCounter from './components/AnimatedCounter.vue';
 import AwardGivenBlock from "./components/AwardGiven";
 import Pill from "./components/Pill";
 import Market from "./components/Market";
@@ -84,6 +86,7 @@ import _ from "lodash";
 export default {
   name: "App",
   components: {
+    AnimatedCounter,
     Pill,
     AwardGivenBlock,
     PredictionDlg,

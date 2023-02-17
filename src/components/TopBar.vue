@@ -3,9 +3,11 @@
     <monitor></monitor>
     <instructions-dialog></instructions-dialog>
     
-    <pill label="Round" :value="getRoundInfo()"></pill>
+    <pill label="Round" :value="getRoundInfo()" class="mx-3"></pill>
     <pill label="Price updates left" v-if="false" :value="getPriceUpdatesLeft()"></pill>
-    <pill label="N. transactions" :value="nTransactions()()"></pill>
+    <pill label="N. transactions" >
+      <animated-counter :value="nTransactions()()" :tweenDuration="1000"></animated-counter>
+    </pill>
 
     <v-spacer v-if="$isHedonic"></v-spacer>
     <div
@@ -29,6 +31,7 @@
 </template>
 
 <script>
+import AnimatedCounter from './AnimatedCounter.vue';
 import InstructionsDialog from "./InstructionsDialog";
 import Timer from "./TickProgress";
 import AwardBlock from "./AwardBlock";
@@ -37,6 +40,7 @@ import { mapState, mapMutations, mapGetters } from "vuex";
 import Monitor from "./Monitor";
 export default {
   components: {
+    AnimatedCounter,
     InstructionsDialog,
     AwardBlock,
     Pill,
