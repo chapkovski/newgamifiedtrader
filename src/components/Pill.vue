@@ -2,7 +2,7 @@
   <v-sheet outlined class="m-0 rounded-lg">
     <v-list-item>
       <v-list-item-content>
-        <h3>{{ label }}:</h3>
+        <h3>{{ label }} <span v-if="label">:</span></h3>
       </v-list-item-content>
       <v-list-item-action class="font-weight-bold">
         <h3>

@@ -4,12 +4,12 @@
 
       <v-row class="mt-1 mx-1">
         <v-col cols="6">
-          <pill label="Total wealth"  prefix="$" >
+          <pill label="Total wealth" prefix="$">
             <animated-counter :value="totalWealth()"></animated-counter>
           </pill>
         </v-col>
         <v-col>
-          <pill label="Current price" >
+          <pill label="Current price">
             <animated-counter :value="market.currentPrice"></animated-counter>
           </pill>
         </v-col>
@@ -19,6 +19,17 @@
 
       </v-row>
       <info-bar :market="market" v-if="salient"></info-bar>
+
+      <v-row v-else class="mx-1">
+        <v-col cols="6">
+          <pill label="">&nbsp;</pill>
+        </v-col>
+        <v-col cols="6">
+
+          <pill label="">&nbsp;</pill>
+        </v-col>
+      </v-row>
+
     </div>
 
     <div id="chart" ref="chartWrapper" style="height=100%" class="flex-grow-1 flex-shrink-0">
@@ -32,7 +43,7 @@
 
     </v-row>
 
-</v-col>
+  </v-col>
 </template>
 
 <script>
@@ -54,7 +65,7 @@ export default {
   data() {
     const rawData = [100, ..._.fill(Array(10), null)];
     return {
-     
+
       salient: window.salient,
       chartHeight: 0,
       prices: [],
@@ -116,7 +127,7 @@ export default {
   },
   watch: {
     "market.currentPrice": {
-      immediate:false,
+      immediate: false,
       handler(v) {
         {
 
