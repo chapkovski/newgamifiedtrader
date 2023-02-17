@@ -2,7 +2,7 @@
   <v-app-bar app clipped-left class="" height="100">
     <monitor></monitor>
     <instructions-dialog></instructions-dialog>
-    <pill label="Total wealth" :value="`\$${totalWealth()()}`"></pill>
+    
     <pill label="Round" :value="getRoundInfo()"></pill>
     <pill label="Price updates left" v-if="false" :value="getPriceUpdatesLeft()"></pill>
     <pill label="N. transactions" :value="nTransactions()()"></pill>
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
    
-    ...mapGetters(["nTransactions",'totalWealth', 'hedonic']),
+    ...mapGetters(["nTransactions", 'hedonic']),
     getRoundInfo() {
       
       return `${window.round_number} out of ${window.num_rounds}`;

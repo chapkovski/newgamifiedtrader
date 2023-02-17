@@ -1,5 +1,5 @@
 <template>
-  <v-sheet outlined class="mx-1">
+  <v-sheet outlined class="m-0 rounded-lg" >
     <v-list-item>
       <v-list-item-content>
         <h3>{{ label }}:</h3>

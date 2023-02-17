@@ -1,41 +1,38 @@
 <template>
   <v-col cols="12" fill-height class="d-flex flex-column">
     <div id="btns" class="flex-grow-0 flex-shrink-0 text-h4">
-      <div class="my-3 font-weight-bold text-center">&nbsp;</div>
-      <pill label="Current price" :value="market.currentPrice"></pill>
-    </div>
-    <div
-      id="chart"
-      ref="chartWrapper"
-      style="height=100%"
-      class="flex-grow-1 flex-shrink-0"
-    >
-      <div :style="{ height: `${chartHeight}px` }" v-resize="onResize">
-        <highcharts
-          v-if="true"
-          :constructorType="'stockChart'"
-          class="hc"
-          :options="chartOptions"
-          ref="priceGraph"
-          :updateArgs="[true, true, true]"
-        ></highcharts>
-      </div>
-    </div>
-    <div id="btns" class="flex-grow-0 flex-shrink-0">
-      <buy-sell-bar
-        :market="market"
-        @sell="sellClicked"
-        @buy="buyClicked"
-      ></buy-sell-bar>
-    </div>
-    <div id="btns" class="flex-grow-0 flex-shrink-0">
+
+      <v-row class="mt-1 mx-1">
+        <v-col cols="6">
+          <pill label="Total wealth" :value="`\$${totalWealth()}`"></pill>
+        </v-col>
+        <v-col>
+          <pill label="Current price" :value="market.currentPrice"></pill>
+        </v-col>
+
+
+
+
+      </v-row>
       <info-bar :market="market" v-if="salient"></info-bar>
     </div>
-  </v-col>
+
+    <div id="chart" ref="chartWrapper" style="height=100%" class="flex-grow-1 flex-shrink-0">
+      <div :style="{ height: `${chartHeight}px` }" v-resize="onResize">
+        <highcharts v-if="true" :constructorType="'stockChart'" class="hc" :options="chartOptions" ref="priceGraph"
+          :updateArgs="[true, true, true]"></highcharts>
+      </div>
+    </div>
+
+    <v-row v-if="false">
+
+    </v-row>
+
+</v-col>
 </template>
 
 <script>
-import BuySellBar from "./BuySellBar";
+
 import InfoBar from "./InfoBar";
 import Pill from "./Pill";
 import { Chart } from "highcharts-vue";
@@ -44,7 +41,7 @@ import { mapMutations, mapActions, mapGetters, mapState } from "vuex";
 export default {
   components: {
     highcharts: Chart,
-    BuySellBar,
+
     InfoBar,
     Pill,
   },
@@ -52,7 +49,7 @@ export default {
   data() {
     const rawData = [100, ..._.fill(Array(10), null)];
     return {
-      salient:window.salient,
+      salient: window.salient,
       chartHeight: 0,
       prices: [],
       xAxis: { min: new Date().getTime() },
@@ -131,7 +128,7 @@ export default {
   },
   computed: {
     ...mapState(["counter"]),
-    ...mapGetters(["getMarket"]),
+    ...mapGetters(["getMarket", "totalWealth",]),
     market() {
       return this.getMarket(this.name);
     },
@@ -144,17 +141,18 @@ export default {
     ...mapMutations(["SET_MARKET_PROPERTY"]),
     ...mapActions(["setPrice", "purchase", "sell"]),
     onResize() {
-      this.chartHeight = this.$refs.chartWrapper.clientHeight - 50;
+      console.debug("DO WE MOUNT AND RESIZE??")
+      this.chartHeight = this.$refs.chartWrapper.clientHeight - 30;
       this.$nextTick(() => {
         this.$refs.priceGraph.chart.setSize(null, this.chartHeight);
         this.$refs.priceGraph.chart.reflow();
       });
     },
     sellClicked() {
-      this.sell({ market: this.name });
+
     },
     buyClicked() {
-      this.purchase({ market: this.name });
+
     },
   },
 };

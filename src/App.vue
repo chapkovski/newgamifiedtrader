@@ -51,7 +51,18 @@
       </v-row>
     </v-main>
     <prediction-dlg></prediction-dlg>
-    
+    <div height="100" :border="false" class="mb-3">
+      <v-row class="mx-1">
+        <v-col cols="6" class="d-flex" >
+        <pill label="Position" :value="market.shares" style="width:100%"></pill>
+      </v-col>
+      <v-col cols="6">
+        
+        <buy-sell-bar  :market="market" ></buy-sell-bar>
+      </v-col>
+      </v-row>
+      
+    </div>
   </v-app>
 </template>
 
@@ -59,7 +70,7 @@
 /* eslint-disable */
 
 import AwardGivenBlock from "./components/AwardGiven";
-
+import Pill from "./components/Pill";
 import Market from "./components/Market";
 import { mapGetters, mapState, mapActions, mapMutations } from "vuex";
 
@@ -67,18 +78,20 @@ import TopBar from "./components/TopBar";
 import IBottomBar from "./components/IBottomBar";
 import PredictionDlg from "./components/PredictionDialog";
 import TradeAllowedDialog from "./components/TradeAllowedDialog";
-
+import BuySellBar from "./components/BuySellBar";
 import _ from "lodash";
 
 export default {
   name: "App",
   components: {
+    Pill,
     AwardGivenBlock,
     PredictionDlg,
     TradeAllowedDialog,
     Market,
     TopBar,
     IBottomBar,
+    BuySellBar,
   },
   data: function () {
 
@@ -141,15 +154,19 @@ export default {
       },
     };
   },
+  
   computed: {
-    ...mapState(["isAwardGiven", "awardGiven", "counter", "socket"]),
+    ...mapState(["isAwardGiven", "awardGiven", "counter", "socket", ]),
     ...mapGetters([
-      
+    'getMarket',
       "showPredictionDlg",
       "endGame",
       "fullLoteryProb",
       "totalWealth",
     ]),
+    market() {
+      return this.getMarket('A');
+    },
     getMenuStyle() {
       return this.training ? { top: "25px" } : null;
     },
@@ -177,7 +194,7 @@ export default {
       if (v >= window.initialPricesA.length) {
         this.PAUSE();
         await this.sendMessage({ name: "GAME_ENDS" });
-        document.getElementById("form").submit();
+        // document.getElementById("form").submit();
       }
     },
   },

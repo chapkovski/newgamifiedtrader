@@ -1,28 +1,26 @@
 <template>
-  <v-row>
-    <v-col cols="6">
-      <pill label="Position" :value="market.shares"></pill>
-    </v-col>
-    <v-col cols="6">
-      <v-sheet
-        outlined
-        class="mx-1 d-flex flex-row justify-space-around align-center"
-        min-height="66"
-      >
-        <v-btn large @click="buy" :color="colorBuy" :disabled="!btnEnabled('buy')"
+  <v-sheet outlined class="m-1 rounded-lg" >
+    <v-list-item>
+      <v-list-item-content>
+         
+          <v-btn large @click="clickBuy" :color="colorBuy" :disabled="!btnEnabled('buy')"
           >Buy</v-btn
         >
-        <v-btn large @click="sell" :color="colorSell" :disabled="!btnEnabled('sell')"
+        <v-btn large @click="clickSell" :color="colorSell" :disabled="!btnEnabled('sell')"
           >Sell</v-btn
         >
+         
+        </v-list-item-content>
+        </v-list-item>
+        
       </v-sheet>
-    </v-col>
-  </v-row>
+
 </template>
 
 <script>
+import "vuetify/dist/vuetify.min.css";
 import Pill from "./Pill";
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState , mapActions} from "vuex";
 export default {
   props: ["market"],
   components: { Pill },
@@ -40,15 +38,18 @@ export default {
     },
   },
   methods: {
+    ...mapActions(["setPrice", "purchase", "sell"]),
     btnEnabled(btn) {
       return this.isTransactionAllowed(this.market.name, btn);
     },
 
-    sell() {
-      this.$emit("sell");
+    clickSell() {
+      this.sell({ market: this.market.name });
+      // this.$emit("sell");
     },
-    buy() {
-      this.$emit("buy");
+    clickBuy() {
+      this.purchase({ market: this.market.name });
+      // this.$emit("buy");
     },
   },
 };
