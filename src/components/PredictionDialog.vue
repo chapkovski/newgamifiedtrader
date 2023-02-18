@@ -12,7 +12,7 @@
               height="280">
               <div>
                 <h6 class="" v-if="counter===0">How likely is the stock to go up in the first period?</h6>
-                <h6 class="" v-else>How likely is the stock to go up in next?</h6>
+                <h6 class="" v-else>How likely is the stock to go up next?</h6>
                 <div style="margin-left: 50px; margin-right: 50px">
                   <vue-slider :min="1" :max="5" :marks="marks1" :tooltip="'always'" :tooltip-placement="'bottom'"
                     v-model="stockUpA" @change="setClicker(0)" :tooltip-formatter="formatter1">
