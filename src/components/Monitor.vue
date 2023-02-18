@@ -57,7 +57,7 @@ export default {
     addSnackMessage(marketName, v, absV) {
       const direction = v > 0 ? "up" : "down";
       const directionColor = v > 0 ? "green" : "red";
-      const msg = `Alert: Stock ${marketName} went ${direction} ${absV} times in a row`;
+      const msg = `Alert: Stock price went ${direction} ${absV} times in a row`;
 
       this.addSnackMessageToStore({
         message: msg,
